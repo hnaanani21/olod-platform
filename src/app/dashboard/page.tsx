@@ -1,3 +1,4 @@
+'use client';
 import Navigation from '@/components/Navigation';
 import DreamPageCard from '@/components/DreamPageCard';
 import AgentStatusPanel from '@/components/AgentStatusPanel';
