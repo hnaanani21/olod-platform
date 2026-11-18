@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   typescript: {
@@ -10,7 +10,6 @@ const nextConfig = {
   images: {
     domains: ['avatars.githubusercontent.com', 'images.unsplash.com'],
   },
-  // Production domain configuration
   async headers() {
     return [
       {

@@ -95,7 +95,7 @@ export default function OIPPage() {
           {/* Ledger */}
           <div>
             <h2 className="text-white font-bold mb-4">Historique complet</h2>
-            <OIPLedger />
+            <OIPLedger transactions={mockOIPTransactions} />
           </div>
 
           {/* V2 teaser — Badges & NFT */}
