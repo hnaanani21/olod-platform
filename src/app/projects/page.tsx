@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { AppShell } from '@/components/AppShell';
 
 const PROJECTS = [
   {
@@ -61,49 +61,44 @@ export default function ProjectsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] text-white">
-      {/* Header */}
-      <div className="border-b border-white/5 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-white/40 hover:text-white/80 text-sm">← Dashboard</Link>
-            <div>
-              <h1 className="text-2xl font-bold">Projets OLOD</h1>
-              <p className="text-sm text-white/40">Découvrez et rejoignez des projets à impact</p>
-            </div>
-          </div>
-          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 rounded-xl font-medium text-sm transition-all">
-            + Créer un projet
-          </button>
-        </div>
-      </div>
-
-      <div className="p-6">
+    <AppShell topBarTitle="Projets OLOD" topBarSubtitle="Découvrez et rejoignez des projets à impact">
+      <div className="max-w-7xl mx-auto p-6">
         {/* Filters */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <div className="relative flex-1 min-w-48">
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher un projet..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-500" />
+              className="w-full border rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none"
+              style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }} />
           </div>
           <div className="flex gap-2 flex-wrap">
             {CATEGORIES.map(c => (
               <button key={c} onClick={() => setCategory(c)}
-                className={`px-3 py-2 rounded-lg text-xs border transition-all ${category === c ? 'bg-blue-500/20 border-blue-500/40 text-blue-300' : 'bg-white/5 border-white/10 text-white/50 hover:border-white/20'}`}>
+                className="px-3 py-2 rounded-lg text-xs border transition-all"
+                style={category === c
+                  ? { background: 'rgba(99,102,241,0.2)', borderColor: 'rgba(99,102,241,0.4)', color: '#a5b4fc' }
+                  : { background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>
                 {c}
               </button>
             ))}
           </div>
-          <div className="flex gap-1 bg-white/5 border border-white/10 rounded-lg p-1">
-            <button onClick={() => setView('grid')} className={`px-2.5 py-1 rounded text-xs transition-all ${view === 'grid' ? 'bg-white/10 text-white' : 'text-white/40'}`}>⊞</button>
-            <button onClick={() => setView('list')} className={`px-2.5 py-1 rounded text-xs transition-all ${view === 'list' ? 'bg-white/10 text-white' : 'text-white/40'}`}>≡</button>
+          <div className="flex gap-1 rounded-lg p-1" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <button onClick={() => setView('grid')} className="px-2.5 py-1 rounded text-xs transition-all"
+              style={{ background: view === 'grid' ? 'rgba(255,255,255,0.1)' : 'transparent', color: view === 'grid' ? 'white' : 'rgba(255,255,255,0.4)' }}>⊞</button>
+            <button onClick={() => setView('list')} className="px-2.5 py-1 rounded text-xs transition-all"
+              style={{ background: view === 'list' ? 'rgba(255,255,255,0.1)' : 'transparent', color: view === 'list' ? 'white' : 'rgba(255,255,255,0.4)' }}>≡</button>
           </div>
+          <button className="px-4 py-2 rounded-xl font-medium text-sm transition-all text-white"
+            style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
+            + Créer un projet
+          </button>
         </div>
 
         {/* Grid */}
         <div className={view === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-3'}>
           {filtered.map(p => (
             <div key={p.id}
-              className={`bg-white/5 border border-white/10 hover:border-white/20 rounded-2xl p-5 cursor-pointer transition-all hover:bg-white/8 ${view === 'list' ? 'flex items-center gap-5' : ''}`}>
+              className={`rounded-2xl p-5 cursor-pointer transition-all ${view === 'list' ? 'flex items-center gap-5' : ''}`}
+              style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
               <div className={`flex items-start gap-3 ${view === 'list' ? 'flex-1' : 'mb-3'}`}>
                 <div className="text-3xl">{p.icon}</div>
                 <div className="flex-1 min-w-0">
@@ -113,38 +108,39 @@ export default function ProjectsPage() {
                       {p.status}
                     </span>
                   </div>
-                  <p className="text-xs text-white/50 mb-1">{p.owner}</p>
-                  {view === 'grid' && <p className="text-sm text-white/60 line-clamp-2">{p.desc}</p>}
+                  <p className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.5)' }}>{p.owner}</p>
+                  {view === 'grid' && <p className="text-sm line-clamp-2" style={{ color: 'rgba(255,255,255,0.6)' }}>{p.desc}</p>}
                 </div>
               </div>
 
-              {view === 'list' && <p className="text-sm text-white/60 w-80 flex-shrink-0 line-clamp-1">{p.desc}</p>}
+              {view === 'list' && <p className="text-sm w-80 flex-shrink-0 line-clamp-1" style={{ color: 'rgba(255,255,255,0.6)' }}>{p.desc}</p>}
 
               <div className={view === 'grid' ? 'mt-4' : 'flex items-center gap-6 flex-shrink-0'}>
                 {view === 'grid' && (
                   <>
                     <div className="flex gap-2 mb-3 flex-wrap">
                       {p.tags.map(t => (
-                        <span key={t} className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-xs text-white/50">{t}</span>
+                        <span key={t} className="px-2 py-0.5 rounded-full text-xs"
+                          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>{t}</span>
                       ))}
                     </div>
                     <div className="mb-2">
-                      <div className="flex justify-between text-xs text-white/50 mb-1">
+                      <div className="flex justify-between text-xs mb-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
                         <span>Avancement</span>
                         <span>{p.progress}%</span>
                       </div>
-                      <div className="w-full bg-white/10 rounded-full h-1.5">
-                        <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full" style={{ width: `${p.progress}%` }} />
+                      <div className="w-full rounded-full h-1.5" style={{ background: 'rgba(255,255,255,0.1)' }}>
+                        <div className="h-1.5 rounded-full" style={{ width: `${p.progress}%`, background: 'linear-gradient(90deg, #6366f1, #8b5cf6)' }} />
                       </div>
                     </div>
                   </>
                 )}
-                <div className={`flex items-center ${view === 'grid' ? 'justify-between' : 'gap-4'} text-xs text-white/40`}>
+                <div className={`flex items-center ${view === 'grid' ? 'justify-between' : 'gap-4'} text-xs`} style={{ color: 'rgba(255,255,255,0.4)' }}>
                   <span>👥 {p.collaborators}</span>
                   <span>❤️ {p.votes}</span>
-                  <span className="text-purple-300">🏳️ {p.nation}</span>
+                  <span style={{ color: '#c4b5fd' }}>🏳️ {p.nation}</span>
                   {view === 'grid' && (
-                    <button className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Voir →</button>
+                    <button className="text-xs transition-colors" style={{ color: '#818cf8' }}>Voir →</button>
                   )}
                 </div>
               </div>
@@ -153,12 +149,12 @@ export default function ProjectsPage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-16 text-white/40">
+          <div className="text-center py-16" style={{ color: 'rgba(255,255,255,0.4)' }}>
             <p className="text-4xl mb-3">🔍</p>
             <p>Aucun projet trouvé pour &quot;{search}&quot;</p>
           </div>
         )}
       </div>
-    </div>
+    </AppShell>
   );
 }

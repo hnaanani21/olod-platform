@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { AppShell } from '@/components/AppShell';
 
 const OPPORTUNITIES = [
   { id: 1, title: 'Expert Digital Twins industriels', org: 'OCP Group', location: 'Benguerir, Maroc', type: 'Mission', match: 97, salary: '15–25k MAD/mois', tags: ['Digital Twins', 'IoT', 'Industrie 4.0'], icon: '🏭', urgent: true,
@@ -30,30 +30,19 @@ export default function OpportunitiesPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] text-white">
-      <div className="border-b border-white/5 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-white/40 hover:text-white/80 text-sm">← Dashboard</Link>
-            <div>
-              <h1 className="text-2xl font-bold">Opportunités</h1>
-              <p className="text-sm text-white/40">Matchées à votre Dream Genome™ — 85% de compatibilité</p>
-            </div>
-          </div>
-          <div className="text-sm text-green-400 bg-green-400/10 border border-green-400/20 rounded-full px-3 py-1">
-            🧬 {filtered.length} opportunités trouvées
-          </div>
-        </div>
-      </div>
-
-      <div className="p-6">
+    <AppShell topBarTitle="Opportunités" topBarSubtitle={`Matchées à votre Dream Genome™ — ${filtered.length} trouvées`}>
+      <div className="max-w-5xl mx-auto p-6">
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher..."
-            className="flex-1 min-w-48 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-500" />
+            className="flex-1 min-w-48 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none"
+            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }} />
           <div className="flex gap-2 flex-wrap">
             {TYPES.map(t => (
               <button key={t} onClick={() => setType(t)}
-                className={`px-3 py-2 rounded-lg text-xs border transition-all ${type === t ? 'bg-blue-500/20 border-blue-500/40 text-blue-300' : 'bg-white/5 border-white/10 text-white/50 hover:border-white/20'}`}>
+                className="px-3 py-2 rounded-lg text-xs border transition-all"
+                style={type === t
+                  ? { background: 'rgba(99,102,241,0.2)', borderColor: 'rgba(99,102,241,0.4)', color: '#a5b4fc' }
+                  : { background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>
                 {t}
               </button>
             ))}
@@ -62,7 +51,8 @@ export default function OpportunitiesPage() {
 
         <div className="space-y-4">
           {filtered.map(o => (
-            <div key={o.id} className="bg-white/5 border border-white/10 hover:border-white/20 rounded-2xl p-5 transition-all cursor-pointer">
+            <div key={o.id} className="rounded-2xl p-5 transition-all cursor-pointer"
+              style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
               <div className="flex items-start gap-4">
                 <div className="text-3xl mt-1">{o.icon}</div>
                 <div className="flex-1 min-w-0">
@@ -71,29 +61,31 @@ export default function OpportunitiesPage() {
                     {o.urgent && (
                       <span className="text-xs px-2 py-0.5 rounded-full text-orange-400 bg-orange-400/10 border border-orange-400/20">Urgent</span>
                     )}
-                    <span className="text-xs px-2 py-0.5 rounded-full text-purple-300 bg-purple-500/10 border border-purple-500/20">{o.type}</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full" style={{ color: '#c4b5fd', background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.2)' }}>{o.type}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-white/50 mb-2 flex-wrap">
+                  <div className="flex items-center gap-3 text-sm mb-2 flex-wrap" style={{ color: 'rgba(255,255,255,0.5)' }}>
                     <span>🏢 {o.org}</span>
                     <span>📍 {o.location}</span>
                     <span>💵 {o.salary}</span>
                   </div>
-                  <p className="text-sm text-white/60 mb-3">{o.desc}</p>
+                  <p className="text-sm mb-3" style={{ color: 'rgba(255,255,255,0.6)' }}>{o.desc}</p>
                   <div className="flex flex-wrap gap-2">
                     {o.tags.map(t => (
-                      <span key={t} className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-full text-xs text-white/50">{t}</span>
+                      <span key={t} className="px-2 py-0.5 rounded-full text-xs"
+                        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)' }}>{t}</span>
                     ))}
                   </div>
                 </div>
                 <div className="flex-shrink-0 text-right">
-                  <div className="text-2xl font-black" style={{ color: o.match >= 90 ? '#10b981' : o.match >= 80 ? '#3b82f6' : '#f59e0b' }}>
+                  <div className="text-2xl font-black" style={{ color: o.match >= 90 ? '#10b981' : o.match >= 80 ? '#6366f1' : '#f59e0b' }}>
                     {o.match}%
                   </div>
-                  <div className="text-xs text-white/40 mb-3">compatibilité</div>
-                  <div className="w-16 bg-white/10 rounded-full h-1 mb-4">
-                    <div className="h-1 rounded-full" style={{ width: `${o.match}%`, backgroundColor: o.match >= 90 ? '#10b981' : '#3b82f6' }} />
+                  <div className="text-xs mb-3" style={{ color: 'rgba(255,255,255,0.4)' }}>compatibilité</div>
+                  <div className="w-16 rounded-full h-1 mb-4" style={{ background: 'rgba(255,255,255,0.1)' }}>
+                    <div className="h-1 rounded-full" style={{ width: `${o.match}%`, backgroundColor: o.match >= 90 ? '#10b981' : '#6366f1' }} />
                   </div>
-                  <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 rounded-lg text-sm font-medium transition-all">
+                  <button className="px-4 py-2 rounded-lg text-sm font-medium transition-all text-white"
+                    style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>
                     Postuler
                   </button>
                 </div>
@@ -103,12 +95,12 @@ export default function OpportunitiesPage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-16 text-white/40">
+          <div className="text-center py-16" style={{ color: 'rgba(255,255,255,0.4)' }}>
             <p className="text-4xl mb-3">🔍</p>
             <p>Aucune opportunité trouvée</p>
           </div>
         )}
       </div>
-    </div>
+    </AppShell>
   );
 }
