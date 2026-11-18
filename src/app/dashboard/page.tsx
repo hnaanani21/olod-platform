@@ -1,178 +1,167 @@
 'use client';
-import Navigation from '@/components/Navigation';
-import DreamPageCard from '@/components/DreamPageCard';
-import AgentStatusPanel from '@/components/AgentStatusPanel';
-import OIPLedger from '@/components/OIPLedger';
-import GenomeRadar from '@/components/GenomeRadar';
-import { mockCurrentUser, mockDreamPages, platformStats } from '@/lib/data';
-import { getHealthColor, getStageLabel } from '@/lib/utils';
+
+import { useState } from 'react';
+import Sidebar from '@/components/Sidebar';
+import ProfileHeader from '@/components/ProfileHeader';
+import ProfileTabs from '@/components/ProfileTabs';
+import AboutSection from '@/components/AboutSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import OpportunitiesSection from '@/components/OpportunitiesSection';
 
 export default function DashboardPage() {
-  const user = mockCurrentUser;
-  const myPages = mockDreamPages.filter((p) => p.author.id === user.id);
+  const [activeTab, setActiveTab] = useState('profil');
 
   return (
-    <>
-      <Navigation />
-      <main className="pt-20 pb-12 px-4 min-h-screen">
-        <div className="max-w-7xl mx-auto">
-
-          {/* Header */}
-          <div className="flex flex-wrap items-start justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-2xl font-black text-white" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Dashboard Dreamer
-              </h1>
-              <p className="text-slate-400 text-sm mt-1">
-                Bonjour {user.name} 👋 — votre écosystème OLOD en temps réel
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="glass-card px-4 py-2.5 flex items-center gap-2">
-                <span className="text-amber-400 text-sm">💫</span>
-                <div>
-                  <div className="text-amber-300 font-black text-lg leading-none">{user.oipPoints.toLocaleString()}</div>
-                  <div className="text-amber-400/60 text-xs">OIP Points</div>
-                </div>
-              </div>
-              <div className="glass-card px-4 py-2.5 flex items-center gap-2">
-                <span className="text-emerald-400 text-sm">⭐</span>
-                <div>
-                  <div className="text-emerald-300 font-black text-lg leading-none">{user.trustScore}%</div>
-                  <div className="text-emerald-400/60 text-xs">Trust Score</div>
-                </div>
-              </div>
-            </div>
+    <div className="flex h-screen bg-[#0a0e1a] text-white overflow-hidden">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto">
+        <TopBar />
+        <ProfileHeader />
+        <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="flex gap-4 p-4">
+          <div className="w-[300px] flex-shrink-0 space-y-4">
+            <AboutSection />
           </div>
-
-          {/* Platform stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
-            {platformStats.map((stat) => (
-              <div key={stat.label} className="glass-card p-3 text-center">
-                <div className="text-xl mb-1">{stat.icon}</div>
-                <div className="text-white font-black text-base">{stat.value}</div>
-                <div className="text-slate-500 text-xs">{stat.label}</div>
-                <div className="text-emerald-400 text-xs font-semibold">{stat.change}</div>
-              </div>
-            ))}
+          <div className="flex-1 space-y-4">
+            <ProjectsSection />
+            <ActivityFeed />
           </div>
-
-          {/* Main grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-            {/* Left column: Genome + OIP */}
-            <div className="space-y-6">
-
-              {/* Genome card */}
-              {user.genome && (
-                <div className="glass-card p-5">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-white font-semibold text-sm">Dream Genome™</h3>
-                    <span className="dream-badge">7 dimensions</span>
-                  </div>
-
-                  <div className="flex justify-center mb-4">
-                    <GenomeRadar genome={user.genome} size={180} />
-                  </div>
-
-                  <div className="space-y-2">
-                    {[
-                      { label: 'Domaine', value: user.genome.domain },
-                      { label: 'Stade', value: getStageLabel(user.genome.stage) },
-                      { label: 'Échelle', value: user.genome.scale },
-                      { label: 'Impact', value: `${user.genome.impact}/10` },
-                    ].map(({ label, value }) => (
-                      <div key={label} className="flex items-center justify-between py-1.5 border-b border-white/4 last:border-0">
-                        <span className="text-slate-500 text-xs">{label}</span>
-                        <span className="text-slate-200 text-xs font-medium">{value}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {user.genome.values.map((v) => (
-                      <span key={v} className="dream-badge">{v}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* OIP Ledger */}
-              <OIPLedger limit={5} />
-            </div>
-
-            {/* Center: Dream Pages */}
-            <div className="lg:col-span-2 space-y-6">
-
-              {/* Quick actions */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {[
-                  { label: 'Nouvelle Dream Page', icon: '📄', href: '/dream-graph', color: '#6366f1' },
-                  { label: 'Voir mes Matches', icon: '✨', href: '/matching', color: '#8b5cf6' },
-                  { label: 'Créer une Mission', icon: '🎯', href: '/missions', color: '#10b981' },
-                  { label: 'Dream Coach™', icon: '🤖', href: '/dashboard', color: '#f59e0b' },
-                ].map((action) => (
-                  <a
-                    key={action.label}
-                    href={action.href}
-                    className="glass-card glass-card-hover p-4 text-center cursor-pointer"
-                    style={{ borderColor: `${action.color}30` }}
-                  >
-                    <div className="text-2xl mb-2">{action.icon}</div>
-                    <div className="text-xs text-slate-300 leading-tight">{action.label}</div>
-                  </a>
-                ))}
-              </div>
-
-              {/* My Dream Pages */}
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-white font-semibold flex items-center gap-2">
-                    <span>📄</span> Mes Dream Pages
-                  </h2>
-                  <a href="/dream-graph" className="text-indigo-400 text-sm hover:text-indigo-300">
-                    Voir tout →
-                  </a>
-                </div>
-                <div className="space-y-4">
-                  {myPages.map((page) => (
-                    <DreamPageCard key={page.id} page={page} />
-                  ))}
-                </div>
-              </div>
-
-              {/* Health Check summary */}
-              <div className="glass-card p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-white font-semibold text-sm flex items-center gap-2">
-                    <span>💊</span> Project Health Check™
-                  </h3>
-                  <span className="text-xs text-slate-500">Mis à jour il y a 1h</span>
-                </div>
-                {myPages.map((page) => (
-                  <div key={page.id} className="mb-3 last:mb-0">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-slate-300 text-xs font-medium">{page.title}</span>
-                      <span className="font-bold text-sm" style={{ color: getHealthColor(page.healthScore) }}>
-                        {page.healthScore}%
-                      </span>
-                    </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{ width: `${page.healthScore}%`, background: getHealthColor(page.healthScore) }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Agent status */}
-              <AgentStatusPanel />
-            </div>
+          <div className="w-[300px] flex-shrink-0 space-y-4">
+            <OpportunitiesSection />
+            <ProgressionSection />
+            <UpgradeCard />
           </div>
         </div>
       </main>
-    </>
+    </div>
+  );
+}
+
+function TopBar() {
+  return (
+    <div className="flex items-center gap-3 px-4 py-3 bg-[#0d1225] border-b border-white/10">
+      <div className="flex-1 relative">
+        <input
+          type="text"
+          placeholder="Rechercher un membre, un projet, une Nation..."
+          className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white/70 placeholder-white/30 focus:outline-none focus:border-purple-500"
+        />
+        <span className="absolute right-3 top-2 text-white/30 text-xs">⌘K</span>
+      </div>
+      <button className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+        <span>✨</span> Partager un rêve
+      </button>
+      <button className="flex items-center gap-2 bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600/30 px-4 py-2 rounded-lg text-sm transition-colors">
+        <span>🤝</span> Trouver des collaborateurs
+      </button>
+      <button className="flex items-center gap-2 bg-green-600/20 border border-green-500/30 hover:bg-green-600/30 px-4 py-2 rounded-lg text-sm transition-colors">
+        <span>📅</span> Rejoindre un projet
+      </button>
+      <button className="flex items-center gap-2 bg-orange-600/20 border border-orange-500/30 hover:bg-orange-600/30 px-4 py-2 rounded-lg text-sm transition-colors">
+        <span>🌍</span> Explorer les Nations
+      </button>
+      <button className="flex items-center gap-2 bg-cyan-600/20 border border-cyan-500/30 hover:bg-cyan-600/30 px-4 py-2 rounded-lg text-sm transition-colors">
+        <span>📱</span> Connect (QR)
+      </button>
+      <button className="relative p-2 hover:bg-white/10 rounded-lg">
+        <span>✉️</span>
+      </button>
+      <button className="relative p-2 hover:bg-white/10 rounded-lg">
+        <span>🔔</span>
+        <span className="absolute -top-1 -right-1 bg-purple-500 text-xs rounded-full w-4 h-4 flex items-center justify-center">12</span>
+      </button>
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 overflow-hidden flex items-center justify-center text-xs font-bold">
+        HN
+      </div>
+    </div>
+  );
+}
+
+function ActivityFeed() {
+  const activities = [
+    { icon: '🌍', text: 'Vous avez rejoint la Nation des Bâtisseurs du Futur', time: 'il y a 2 jours', color: 'bg-green-500' },
+    { icon: '🏆', text: 'Nouveau badge : Innovateur Digital', sub: 'Pour avoir lancé votre première plateforme IA', time: 'il y a 3 jours', color: 'bg-yellow-500' },
+    { icon: '💬', text: 'Samir Essatim a commenté votre projet OLOD', sub: '"Excellent travail Hassan, la vision est claire et impactante !"', time: 'il y a 4 jours', color: 'bg-blue-500' },
+    { icon: '🤝', text: 'Nouvelle connexion : Dr. Abdessamad Faik', time: 'il y a 5 jours', color: 'bg-purple-500' },
+  ];
+
+  return (
+    <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-white">Mon fil d&apos;activité</h3>
+        <button className="text-purple-400 text-sm hover:text-purple-300">Voir tout →</button>
+      </div>
+      <div className="space-y-3">
+        {activities.map((a, i) => (
+          <div key={i} className="flex items-start gap-3">
+            <div className={`w-8 h-8 rounded-full ${a.color} flex items-center justify-center text-sm flex-shrink-0`}>
+              {a.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-white/80">{a.text}</p>
+              {a.sub && <p className="text-xs text-white/50 italic mt-0.5">{a.sub}</p>}
+              <p className="text-xs text-white/30 mt-1">{a.time}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex items-center gap-2 border-t border-white/10 pt-3">
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">HN</div>
+        <input type="text" placeholder="Écrivez un message..." className="flex-1 bg-white/5 rounded-lg px-3 py-1.5 text-sm text-white/70 placeholder-white/30 focus:outline-none" />
+        <button className="text-purple-400 hover:text-purple-300">➤</button>
+      </div>
+    </div>
+  );
+}
+
+function ProgressionSection() {
+  return (
+    <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-white">Ma progression</h3>
+        <button className="text-purple-400 text-sm hover:text-purple-300">Voir les détails →</button>
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="relative w-20 h-20">
+          <svg viewBox="0 0 36 36" className="w-20 h-20 -rotate-90">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2.5" />
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#8b5cf6" strokeWidth="2.5"
+              strokeDasharray="82 100" strokeLinecap="round" />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-xs font-bold text-white">Niveau 7</span>
+            <span className="text-xs text-purple-400">Expert</span>
+          </div>
+        </div>
+        <div className="flex-1">
+          <p className="text-xs text-white/50 mb-2">1 850 / 2 500 XP</p>
+          <div className="w-full bg-white/10 rounded-full h-1.5 mb-3">
+            <div className="bg-purple-500 h-1.5 rounded-full" style={{ width: '74%' }} />
+          </div>
+          <p className="text-xs text-white/50 mb-1">Prochains badges</p>
+          <div className="flex gap-2">
+            {['🔮', '🌟', '💡'].map((badge, i) => (
+              <div key={i} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm">{badge}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UpgradeCard() {
+  return (
+    <div className="relative bg-gradient-to-br from-blue-900 to-purple-900 border border-purple-500/30 rounded-xl p-4 overflow-hidden">
+      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url(/hero-bg.jpg)', backgroundSize: 'cover' }} />
+      <div className="relative">
+        <span className="text-2xl">👑</span>
+        <h3 className="font-bold text-white mt-1">Passez au niveau supérieur</h3>
+        <p className="text-xs text-white/70 mt-1 mb-3">Accédez à des outils exclusifs et des opportunités pour développer vos projets.</p>
+        <button className="w-full bg-white/20 hover:bg-white/30 border border-white/20 rounded-lg py-2 text-sm font-medium transition-colors">
+          Découvrir les abonnements →
+        </button>
+      </div>
+    </div>
   );
 }
