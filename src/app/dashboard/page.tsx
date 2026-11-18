@@ -125,11 +125,11 @@ function Sidebar() {
 
 function TopBar() {
   const actions = [
-    { icon: '✦', label: 'Partager un rêve', from: '#7c3aed', to: '#6366f1' },
-    { icon: '🤝', label: 'Collaborateurs', from: '#1d4ed8', to: '#3b82f6' },
-    { icon: '🚀', label: 'Rejoindre', from: '#065f46', to: '#059669' },
-    { icon: '🌍', label: 'Nations', from: '#92400e', to: '#d97706' },
-    { icon: '⬡', label: 'QR Connect', from: '#164e63', to: '#0891b2' },
+    { icon: '✦', label: 'Partager un rêve', from: '#7c3aed', to: '#6366f1', href: '/matching' },
+    { icon: '🤝', label: 'Collaborateurs', from: '#1d4ed8', to: '#3b82f6', href: '/projects' },
+    { icon: '🚀', label: 'Rejoindre', from: '#065f46', to: '#059669', href: '/missions' },
+    { icon: '🌍', label: 'Nations', from: '#92400e', to: '#d97706', href: '/nations' },
+    { icon: '⬡', label: 'QR Connect', from: '#164e63', to: '#0891b2', href: '#qr' },
   ];
   return (
     <div className="flex-shrink-0 px-5 py-3 flex items-center gap-4"
@@ -148,11 +148,11 @@ function TopBar() {
       {/* Actions */}
       <div className="flex items-center gap-2 flex-1 overflow-x-auto">
         {actions.map(a => (
-          <button key={a.label}
+          <Link key={a.label} href={a.href}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white whitespace-nowrap flex-shrink-0 transition-all hover:scale-105 hover:brightness-110"
             style={{ background: `linear-gradient(135deg, ${a.from}, ${a.to})`, boxShadow: `0 2px 8px ${a.to}40` }}>
             <span className="text-xs">{a.icon}</span> {a.label}
-          </button>
+          </Link>
         ))}
       </div>
       {/* Right icons */}
@@ -631,6 +631,181 @@ function RightColumn() {
   );
 }
 
+function TabContent({ activeTab }: { activeTab: string }) {
+  if (activeTab === 'projets') {
+    return (
+      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Mes projets (2)</h3>
+              <Link href="/projects" className="text-xs font-semibold hover:opacity-80" style={{ color: '#6366f1' }}>Voir tous les projets →</Link>
+            </div>
+            {[
+              { title:'OLOD Platform', status:'En cours', sc:'#6366f1', sg:'rgba(99,102,241,0.15)', category:'Tech & Innovation', progress:72, emoji:'🌐' },
+              { title:'Digital Twin H₂ Storage', status:'En cours', sc:'#3b82f6', sg:'rgba(59,130,246,0.15)', category:'Science • Énergie', progress:55, emoji:'⚗️' },
+            ].map(p => (
+              <div key={p.title} className="flex items-center gap-4 mb-4 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+                  style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)' }}>{p.emoji}</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-semibold text-sm" style={{ color: '#e2e8f0' }}>{p.title}</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: p.sg, color: p.sc, border: `1px solid ${p.sc}30` }}>{p.status}</span>
+                  </div>
+                  <p className="text-xs mb-2" style={{ color: '#374151' }}>{p.category}</p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 rounded-full h-1.5" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                      <div className="h-1.5 rounded-full" style={{ width: `${p.progress}%`, backgroundColor: p.sc }} />
+                    </div>
+                    <span className="text-xs font-medium" style={{ color: p.sc }}>{p.progress}%</span>
+                  </div>
+                </div>
+                <Link href="/projects" className="text-xs px-3 py-1.5 rounded-lg font-semibold" style={{ color: p.sc, backgroundColor: p.sg }}>Voir →</Link>
+              </div>
+            ))}
+            <Link href="/projects" className="block w-full text-center py-2.5 rounded-xl text-xs font-semibold text-white mt-2"
+              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>+ Créer un nouveau projet</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeTab === 'connexions') {
+    return (
+      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Mes connexions (124)</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { name: 'Sarah K.', role: 'CTO GreenEnergy', nation: 'Innovateurs', avatar: 'SK', color: '#10b981' },
+                { name: 'Ali B.', role: 'IoT Engineer', nation: 'Bâtisseurs', avatar: 'AB', color: '#6366f1' },
+                { name: 'Sofia M.', role: 'Product Manager', nation: 'Bâtisseurs', avatar: 'SM', color: '#f59e0b' },
+                { name: 'Youssef R.', role: 'Data Scientist', nation: 'Innovateurs', avatar: 'YR', color: '#3b82f6' },
+                { name: 'Nadia H.', role: 'UX Designer', nation: 'Artisans', avatar: 'NH', color: '#ec4899' },
+                { name: 'Omar Z.', role: 'Blockchain Dev', nation: 'Pionniers', avatar: 'OZ', color: '#8b5cf6' },
+              ].map(c => (
+                <div key={c.name} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0"
+                    style={{ background: `linear-gradient(135deg, ${c.color}80, ${c.color})` }}>{c.avatar}</div>
+                  <div>
+                    <p className="font-semibold text-xs" style={{ color: '#e2e8f0' }}>{c.name}</p>
+                    <p className="text-xs" style={{ color: '#4b5673' }}>{c.role}</p>
+                    <p className="text-xs" style={{ color: c.color }}>🏳️ {c.nation}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs mt-4" style={{ color: '#4b5673' }}>et 118 autres connexions…</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeTab === 'badges') {
+    return (
+      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <h3 className="font-bold text-sm mb-5" style={{ color: '#c7d2fe' }}>Mes badges (8)</h3>
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { icon: '🏅', label: 'Expert Digital Twins', color: '#f59e0b' },
+                { icon: '🌱', label: 'Green Innovator', color: '#10b981' },
+                { icon: '🤝', label: 'Super Connecteur', color: '#6366f1' },
+                { icon: '🚀', label: 'Early Adopter', color: '#8b5cf6' },
+                { icon: '💡', label: 'Mentor', color: '#3b82f6' },
+                { icon: '🌍', label: 'Nation Builder', color: '#d97706' },
+                { icon: '⚗️', label: 'Chercheur', color: '#06b6d4' },
+                { icon: '🎓', label: 'Formateur', color: '#ec4899' },
+              ].map(b => (
+                <div key={b.label} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${b.color}30` }}>
+                  <div className="text-3xl">{b.icon}</div>
+                  <p className="text-xs font-semibold" style={{ color: b.color }}>{b.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeTab === 'journal') {
+    return (
+      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <h3 className="font-bold text-sm mb-5" style={{ color: '#c7d2fe' }}>Mon journal de rêves</h3>
+            <div className="space-y-4">
+              {[
+                { date: 'Aujourd\'hui', title: 'Vision OLOD 2026', text: 'Atteindre 10 000 membres actifs et 500 projets collaboratifs...', emoji: '✨' },
+                { date: 'Il y a 3 jours', title: 'Avancée H₂ Storage', text: 'Le modèle thermochimique atteint 94% de précision sur les données LIMSET...', emoji: '⚗️' },
+                { date: 'Il y a 1 semaine', title: 'Impact formation UM6P', text: 'Session Python ML terminée avec 95% de satisfaction. Prochaine étape: Deep Learning...', emoji: '🎓' },
+              ].map(j => (
+                <div key={j.title} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-lg">{j.emoji}</span>
+                    <span className="font-semibold text-sm" style={{ color: '#e2e8f0' }}>{j.title}</span>
+                    <span className="text-xs ml-auto" style={{ color: '#4b5673' }}>{j.date}</span>
+                  </div>
+                  <p className="text-xs" style={{ color: '#64748b' }}>{j.text}</p>
+                </div>
+              ))}
+            </div>
+            <button className="w-full mt-4 py-2.5 rounded-xl text-xs font-semibold text-white"
+              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>+ Nouvelle entrée</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeTab === 'parametres') {
+    return (
+      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <h3 className="font-bold text-sm mb-5" style={{ color: '#c7d2fe' }}>Paramètres du profil</h3>
+            <div className="space-y-4">
+              {[
+                { label: 'Nom complet', value: 'Dr Hassan NAANANI', type: 'text' },
+                { label: 'Titre', value: 'CTO DIGITHS • Chercheur LIMSET UM6P', type: 'text' },
+                { label: 'Email', value: 'h.naanani@digiths.ma', type: 'email' },
+                { label: 'Localisation', value: 'Benguerir, Maroc 🇲🇦', type: 'text' },
+              ].map(f => (
+                <div key={f.label}>
+                  <label className="block text-xs font-semibold mb-1.5" style={{ color: '#4b5673' }}>{f.label}</label>
+                  <input defaultValue={f.value} type={f.type}
+                    className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none"
+                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#e2e8f0' }} />
+                </div>
+              ))}
+              <button className="w-full py-2.5 rounded-xl text-xs font-semibold text-white mt-2"
+                style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>Enregistrer les modifications</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Onglet profil (défaut) → les 3 colonnes
+  return (
+    <div className="grid gap-4 p-4" style={{ gridTemplateColumns: '300px 1fr 280px', backgroundColor: '#080c18' }}>
+      <AboutColumn />
+      <MiddleColumn />
+      <RightColumn />
+    </div>
+  );
+}
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('profil');
   return (
@@ -640,11 +815,7 @@ export default function DashboardPage() {
         <TopBar />
         <div className="flex-1 overflow-y-auto" style={{ backgroundColor: '#080c18' }}>
           <ProfileHero activeTab={activeTab} setActiveTab={setActiveTab} />
-          <div className="grid gap-4 p-4" style={{ gridTemplateColumns: '300px 1fr 280px', backgroundColor: '#080c18' }}>
-            <AboutColumn />
-            <MiddleColumn />
-            <RightColumn />
-          </div>
+          <TabContent activeTab={activeTab} />
         </div>
       </div>
     </div>
