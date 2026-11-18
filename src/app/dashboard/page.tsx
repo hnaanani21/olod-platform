@@ -19,162 +19,172 @@ import Link from 'next/link';
 ──────────────────────────────────────────────────────────────────────────── */
 
 function Sidebar() {
-  const items = [
-    { icon: '⬡', label: 'Accueil', href: '/dashboard', active: true },
-    { icon: '🕸️', label: 'Dream Graph', href: '/dream-graph' },
-    { icon: '🌍', label: 'Dream Nations', href: '/nations' },
-    { icon: '📋', label: 'Projets', href: '/projects' },
-    { icon: '💬', label: 'Messages', href: '#', badge: 5, badgeColor: '#818cf8' },
-    { icon: '🔔', label: 'Notifications', href: '#', badge: 12, badgeColor: '#f87171' },
-    { icon: '🎓', label: 'Dream Academy', href: '#' },
-    { icon: '📅', label: 'Événements', href: '#' },
-    { icon: '📱', label: 'QR Connect', href: '#' },
-    { icon: '📚', label: 'Ressources', href: '#' },
-    { icon: '⚙️', label: 'Paramètres', href: '#' },
+  const groups = [
+    {
+      items: [
+        { label: 'Tableau de bord', href: '/dashboard', active: true },
+        { label: 'Dream Graph', href: '/dream-graph' },
+        { label: 'Dream Nations', href: '/nations' },
+        { label: 'Projets', href: '/projects' },
+        { label: 'Matching', href: '/matching' },
+      ],
+    },
+    {
+      title: 'Communauté',
+      items: [
+        { label: 'Messages', href: '#', badge: 5 },
+        { label: 'Notifications', href: '#', badge: 12 },
+        { label: 'Événements', href: '#' },
+      ],
+    },
+    {
+      title: 'Découvrir',
+      items: [
+        { label: 'Dream Academy', href: '#' },
+        { label: 'Ressources', href: '#' },
+        { label: 'Paramètres', href: '#' },
+      ],
+    },
   ];
 
   return (
-    <div className="w-[210px] flex-shrink-0 flex flex-col h-screen"
-      style={{
-        background: 'linear-gradient(180deg, #060916 0%, #04060f 100%)',
-        borderRight: '1px solid rgba(99,102,241,0.12)',
-      }}>
-
+    <div style={{
+      width: 220, flexShrink: 0, display: 'flex', flexDirection: 'column', height: '100vh',
+      backgroundColor: '#0c0c0d',
+      borderRight: '1px solid rgba(255,255,255,0.07)',
+    }}>
       {/* Logo */}
-      <div className="px-5 py-5 flex items-center gap-3">
-        <div className="relative w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0"
-          style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #2563eb 100%)' }}>
-          <span className="font-black text-white text-sm relative z-10">O</span>
-          <div className="absolute inset-0 opacity-50"
-            style={{ background: 'radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), transparent 60%)' }} />
+      <div style={{ padding: '20px 20px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{
+          width: 28, height: 28, borderRadius: 6, backgroundColor: '#c9a96e',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+        }}>
+          <span style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: 700, fontSize: 14, color: '#0c0c0d', lineHeight: 1 }}>O</span>
         </div>
         <div>
-          <div className="font-black text-sm" style={{ color: '#f0f4ff', letterSpacing: '0.03em' }}>OLOD</div>
-          <div className="text-xs font-medium" style={{ color: '#6366f1', letterSpacing: '0.02em' }}>One Life One Dream</div>
+          <div style={{ fontFamily: 'Playfair Display, Georgia, serif', fontWeight: 600, fontSize: 15, color: '#f2ede4' }}>OLOD</div>
+          <div style={{ fontSize: 10, color: '#4a4a4a', marginTop: 1 }}>One Life One Dream</div>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="mx-4 mb-2 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent)' }} />
+      <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.07)', margin: '0 16px 8px' }} />
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-1 space-y-0.5 overflow-y-auto">
-        {items.map(item => (
-          <Link key={item.label} href={item.href}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all relative group"
-            style={item.active ? {
-              background: 'linear-gradient(90deg, rgba(99,102,241,0.18) 0%, rgba(99,102,241,0.06) 100%)',
-              color: '#a5b4fc',
-            } : { color: '#4b5673' }}>
-            {item.active && (
-              <>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full"
-                  style={{ background: 'linear-gradient(180deg, #818cf8, #6366f1)' }} />
-                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ background: 'rgba(99,102,241,0.04)' }} />
-              </>
+      <nav style={{ flex: 1, padding: '8px 12px', overflowY: 'auto' }}>
+        {groups.map((group, gi) => (
+          <div key={gi} style={{ marginBottom: 20 }}>
+            {group.title && (
+              <div style={{ fontSize: 10, fontWeight: 500, color: '#3a3a3a', letterSpacing: '0.08em', padding: '0 8px', marginBottom: 4 }}>
+                {group.title}
+              </div>
             )}
-            {!item.active && (
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                style={{ background: 'rgba(255,255,255,0.03)' }} />
-            )}
-            <span className={`text-sm w-5 text-center ${item.active ? '' : 'opacity-50 group-hover:opacity-80 transition-opacity'}`}>{item.icon}</span>
-            <span className={`flex-1 font-medium ${item.active ? '' : 'group-hover:text-slate-300 transition-colors'}`}>{item.label}</span>
-            {item.badge && (
-              <span className="text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center text-white"
-                style={{ backgroundColor: item.badgeColor, boxShadow: `0 0 8px ${item.badgeColor}60` }}>
-                {item.badge}
-              </span>
-            )}
-          </Link>
+            {group.items.map(item => (
+              <Link key={item.label} href={item.href}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '8px 10px', borderRadius: 6,
+                  fontSize: 13, fontWeight: item.active ? 500 : 400, textDecoration: 'none',
+                  color: item.active ? '#f2ede4' : '#5a5a5a',
+                  backgroundColor: item.active ? '#1a1a1d' : 'transparent',
+                  borderLeft: item.active ? '2px solid #c9a96e' : '2px solid transparent',
+                  marginBottom: 2,
+                  transition: 'color 0.15s',
+                }}>
+                <span>{item.label}</span>
+                {item.badge && (
+                  <span style={{
+                    fontSize: 10, fontWeight: 600, color: '#0c0c0d',
+                    backgroundColor: '#c9a96e', borderRadius: 10,
+                    padding: '1px 6px', minWidth: 18, textAlign: 'center',
+                  }}>{item.badge}</span>
+                )}
+              </Link>
+            ))}
+          </div>
         ))}
       </nav>
 
-      {/* Galaxy card */}
-      <div className="m-3">
-        <div className="relative p-4 rounded-2xl overflow-hidden text-center"
-          style={{ background: 'linear-gradient(135deg, #0c0a2e 0%, #130d3a 50%, #0a1428 100%)', border: '1px solid rgba(139,92,246,0.2)' }}>
-          {/* Stars */}
-          {[...Array(18)].map((_, i) => (
-            <div key={i} className="absolute rounded-full bg-white"
-              style={{ width: i%4===0?2:1, height: i%4===0?2:1, top:`${(i*41+7)%100}%`, left:`${(i*59+13)%100}%`, opacity: 0.15+(i%6)*0.08 }} />
-          ))}
-          {/* Glow */}
-          <div className="absolute inset-0 rounded-2xl" style={{ background: 'radial-gradient(ellipse at 50% 70%, rgba(99,102,241,0.3) 0%, transparent 65%)' }} />
-          {/* Globe */}
-          <div className="relative w-14 h-14 mx-auto mb-3">
-            <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle at 35% 35%, rgba(129,140,248,0.5), rgba(99,102,241,0.2), transparent)', border: '1px solid rgba(99,102,241,0.3)' }} />
-            <div className="absolute inset-0 flex items-center justify-center text-2xl">🌐</div>
-            {[0,1,2,3,4,5].map(i => (
-              <div key={i} className="absolute w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: ['#818cf8','#a78bfa','#60a5fa','#34d399','#fbbf24','#f472b6'][i], top:`${50-42*Math.cos(i*Math.PI/3)}%`, left:`${50+42*Math.sin(i*Math.PI/3)}%`, transform:'translate(-50%,-50%)', boxShadow:`0 0 6px currentColor` }} />
-            ))}
-          </div>
-          <p className="relative text-xs font-bold mb-1" style={{ color: '#e0e7ff' }}>Rejoignez une Nation</p>
-          <p className="relative text-xs mb-3" style={{ color: '#6366f1' }}>Trouvez votre tribu</p>
-          <Link href="/nations"
-            className="relative block w-full py-2 rounded-xl text-xs font-semibold text-white hover:opacity-90 transition-opacity"
-            style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 2px 12px rgba(99,102,241,0.4)' }}>
-            Explorer →
-          </Link>
-        </div>
+      {/* Profile mini */}
+      <div style={{ padding: '12px 16px', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+        <Link href="/nations" style={{
+          display: 'block', padding: '12px', borderRadius: 8,
+          backgroundColor: '#141416', border: '1px solid rgba(201,169,110,0.15)',
+          textDecoration: 'none',
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 500, color: '#c9a96e', marginBottom: 4 }}>Rejoindre une Nation</div>
+          <div style={{ fontSize: 11, color: '#4a4a4a' }}>9 communautés actives</div>
+        </Link>
       </div>
     </div>
   );
 }
 
 function TopBar() {
-  const actions = [
-    { icon: '✦', label: 'Partager un rêve', from: '#7c3aed', to: '#6366f1', href: '/matching' },
-    { icon: '🤝', label: 'Collaborateurs', from: '#1d4ed8', to: '#3b82f6', href: '/projects' },
-    { icon: '🚀', label: 'Rejoindre', from: '#065f46', to: '#059669', href: '/missions' },
-    { icon: '🌍', label: 'Nations', from: '#92400e', to: '#d97706', href: '/nations' },
-    { icon: '⬡', label: 'QR Connect', from: '#164e63', to: '#0891b2', href: '#qr' },
+  const quickLinks = [
+    { label: 'Partager un rêve', href: '/matching' },
+    { label: 'Trouver des collaborateurs', href: '/projects' },
+    { label: 'Missions', href: '/missions' },
+    { label: 'Nations', href: '/nations' },
   ];
   return (
-    <div className="flex-shrink-0 px-5 py-3 flex items-center gap-4"
-      style={{ background: 'linear-gradient(90deg, #060916 0%, #04060f 100%)', borderBottom: '1px solid rgba(99,102,241,0.1)' }}>
+    <div style={{
+      flexShrink: 0, padding: '0 24px', height: 52,
+      display: 'flex', alignItems: 'center', gap: 16,
+      backgroundColor: '#0c0c0d',
+      borderBottom: '1px solid rgba(255,255,255,0.07)',
+    }}>
       {/* Search */}
-      <div className="relative w-56 flex-shrink-0">
-        <svg className="absolute left-3 top-1/2 -translate-y-1/2 opacity-30" width="13" height="13" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
+      <div style={{ position: 'relative', width: 220, flexShrink: 0 }}>
+        <svg style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', opacity: 0.3 }}
+          width="13" height="13" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
         <input placeholder="Rechercher..."
-          className="w-full pl-9 pr-14 py-2 rounded-xl text-xs focus:outline-none transition-colors"
-          style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#94a3b8' }} />
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono px-1.5 py-0.5 rounded"
-          style={{ color: '#4b5673', backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>⌘K</span>
+          style={{
+            width: '100%', paddingLeft: 32, paddingRight: 12, paddingTop: 7, paddingBottom: 7,
+            borderRadius: 7, fontSize: 12, outline: 'none',
+            backgroundColor: '#141416', border: '1px solid rgba(255,255,255,0.08)', color: '#9a9a9a',
+          }} />
       </div>
-      {/* Actions */}
-      <div className="flex items-center gap-2 flex-1 overflow-x-auto">
-        {actions.map(a => (
-          <Link key={a.label} href={a.href}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white whitespace-nowrap flex-shrink-0 transition-all hover:scale-105 hover:brightness-110"
-            style={{ background: `linear-gradient(135deg, ${a.from}, ${a.to})`, boxShadow: `0 2px 8px ${a.to}40` }}>
-            <span className="text-xs">{a.icon}</span> {a.label}
-          </Link>
+
+      {/* Quick links */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1, overflowX: 'auto' }}>
+        {quickLinks.map(a => (
+          <Link key={a.label} href={a.href} style={{
+            padding: '6px 12px', borderRadius: 6,
+            fontSize: 12, fontWeight: 400, color: '#5a5a5a',
+            border: '1px solid rgba(255,255,255,0.07)',
+            whiteSpace: 'nowrap', flexShrink: 0, textDecoration: 'none',
+            backgroundColor: '#141416',
+          }}>{a.label}</Link>
         ))}
       </div>
-      {/* Right icons */}
-      <div className="flex items-center gap-4 flex-shrink-0">
-        <button style={{ color: '#4b5673' }} className="hover:text-slate-400 transition-colors">
-          <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </button>
-        <div className="relative">
-          <button style={{ color: '#4b5673' }} className="hover:text-slate-400 transition-colors">
-            <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          </button>
-          <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full text-xs flex items-center justify-center text-white font-bold"
-            style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)', boxShadow: '0 0 8px rgba(239,68,68,0.5)', fontSize: 9 }}>12</span>
+
+      {/* Right */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+        <div style={{ position: 'relative' }}>
+          <svg width="16" height="16" fill="none" stroke="#4a4a4a" strokeWidth="1.5" viewBox="0 0 24 24" style={{ cursor: 'pointer' }}>
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span style={{
+            position: 'absolute', top: -6, right: -6,
+            width: 14, height: 14, borderRadius: 7,
+            backgroundColor: '#c9a96e', fontSize: 9, fontWeight: 700,
+            color: '#0c0c0d', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>12</span>
         </div>
-        <div className="flex items-center gap-2 cursor-pointer group">
-          <div className="relative w-8 h-8 rounded-full flex items-center justify-center font-black text-xs text-white"
-            style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 12px rgba(99,102,241,0.4)', border: '2px solid rgba(129,140,248,0.3)' }}>
-            HN
-            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-[#04060f]"
-              style={{ backgroundColor: '#10b981' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+          <div style={{
+            width: 30, height: 30, borderRadius: '50%',
+            backgroundColor: '#1a1a1d', border: '1px solid rgba(201,169,110,0.3)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 11, fontWeight: 600, color: '#c9a96e',
+            fontFamily: 'Playfair Display, serif',
+          }}>HN</div>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: '#f2ede4', lineHeight: 1.2 }}>Dr. Hassan N.</div>
+            <div style={{ fontSize: 10, color: '#4a4a4a' }}>Scientist · LIMSET</div>
           </div>
-          <span style={{ color: '#4b5673' }} className="text-xs group-hover:text-slate-400 transition-colors">▾</span>
         </div>
       </div>
     </div>
@@ -191,164 +201,141 @@ function ProfileHero({ activeTab, setActiveTab }: { activeTab: string; setActive
     { label: 'Paramètres', key: 'parametres' },
   ];
   return (
-    <div style={{ backgroundColor: '#080c18' }}>
-      {/* Banner */}
-      <div className="relative h-44 overflow-hidden">
-        {/* Sky */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #020510 0%, #071020 20%, #0d2010 55%, #040c04 100%)' }} />
-        {/* Stars */}
-        {[...Array(30)].map((_, i) => (
-          <div key={i} className="absolute rounded-full bg-white"
-            style={{ width: i%5===0?2:1, height: i%5===0?2:1, top:`${(i*31+5)%60}%`, left:`${(i*47+9)%100}%`, opacity:0.1+(i%7)*0.07 }} />
-        ))}
-        {/* Sun glow */}
-        <div className="absolute top-4" style={{ left:'48%', width:120, height:120, borderRadius:'50%', background:'radial-gradient(circle, rgba(251,191,36,0.6) 0%, rgba(251,146,60,0.25) 40%, transparent 70%)', transform:'translateX(-50%)' }} />
-        {/* Mountains — back */}
-        <svg className="absolute bottom-0 w-full" viewBox="0 0 1440 90" preserveAspectRatio="none">
-          <path d="M0,90 L0,50 L80,20 L160,45 L260,8 L360,38 L460,5 L560,32 L660,2 L760,30 L860,6 L960,34 L1060,8 L1160,36 L1280,12 L1380,40 L1440,28 L1440,90 Z"
-            fill="rgba(8,20,8,0.75)" />
-        </svg>
-        {/* Mountains — mid */}
-        <svg className="absolute bottom-0 w-full" viewBox="0 0 1440 70" preserveAspectRatio="none">
-          <path d="M0,70 L0,55 L120,30 L240,52 L360,18 L480,46 L600,15 L720,44 L840,18 L960,46 L1080,22 L1200,48 L1320,20 L1440,38 L1440,70 Z"
-            fill="rgba(10,28,10,0.88)" />
-        </svg>
-        {/* Mountains — front */}
-        <svg className="absolute bottom-0 w-full" viewBox="0 0 1440 50" preserveAspectRatio="none">
-          <path d="M0,50 L0,38 L180,22 L360,38 L540,20 L720,38 L900,22 L1080,40 L1260,24 L1440,36 L1440,50 Z"
-            fill="rgba(6,12,6,0.96)" />
-        </svg>
-        {/* Silhouette */}
-        <div className="absolute bottom-10" style={{ left:'50%', transform:'translateX(-50%)', opacity:0.25 }}>
-          <svg width="20" height="34" viewBox="0 0 20 34" fill="#000">
-            <circle cx="10" cy="5" r="4.5"/>
-            <path d="M4 14 Q10 10 16 14 L17.5 28 L13.5 28 L12 20 L8 20 L6.5 28 L2.5 28 Z"/>
-          </svg>
+    <div style={{ backgroundColor: '#0c0c0d' }}>
+      {/* Banner — editorial flat strip, no decorative scenery */}
+      <div className="relative h-32 overflow-hidden" style={{ backgroundColor: '#141416', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        {/* Thin gold line accent — top edge */}
+        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #c9a96e 30%, #c9a96e 70%, transparent 100%)' }} />
+        {/* Faint typographic texture — repeated field name */}
+        <div className="absolute inset-0 flex items-center overflow-hidden select-none" style={{ opacity: 0.03 }}>
+          {[...Array(6)].map((_, i) => (
+            <span key={i} className="text-6xl font-black whitespace-nowrap mr-16" style={{ color: '#f2ede4', fontFamily: 'Playfair Display, serif', letterSpacing: '-0.02em' }}>
+              One Life One Dream
+            </span>
+          ))}
         </div>
-        {/* QR card */}
-        <div className="absolute top-3 right-4 rounded-2xl p-3 overflow-hidden"
-          style={{ background:'rgba(4,6,15,0.85)', backdropFilter:'blur(20px)', border:'1px solid rgba(99,102,241,0.2)', minWidth:180 }}>
-          <div className="absolute inset-0 opacity-20" style={{ background:'radial-gradient(ellipse at 100% 0%, rgba(99,102,241,0.6), transparent 60%)' }} />
-          <p className="relative text-xs font-bold mb-0.5" style={{ color:'#e0e7ff' }}>Mon QR Code Connect™</p>
-          <p className="relative text-xs mb-2" style={{ color:'#4b5673' }}>Scannez et connectez-vous</p>
-          <div className="relative w-16 h-16 mx-auto bg-white rounded-lg p-1 mb-2">
-            <div className="w-full h-full grid grid-cols-9 gap-px">
-              {Array.from({length:81}).map((_,i)=>{
-                const r=Math.floor(i/9),c=i%9;
-                const corner=(r<3&&c<3)||(r<3&&c>5)||(r>5&&c<3);
-                const data=[13,14,22,23,31,32,40,41,43,44,49,54,58,62,67,68];
-                const filled=corner||data.includes(i)||(i%7===0)||(i%11===3);
+        {/* QR card — right aligned, minimal */}
+        <div className="absolute top-4 right-5 flex items-center gap-2 px-3 py-2 rounded"
+          style={{ background: '#1a1a1d', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="w-10 h-10 bg-white rounded flex-shrink-0 p-0.5">
+            <div className="w-full h-full grid grid-cols-7 gap-px">
+              {Array.from({length:49}).map((_,i)=>{
+                const r=Math.floor(i/7),c=i%7;
+                const corner=(r<2&&c<2)||(r<2&&c>4)||(r>4&&c<2);
+                const filled=corner||(i%5===0)||(i%8===3);
                 return <div key={i} className={filled?'bg-black':'bg-white'} style={{aspectRatio:'1'}} />;
               })}
             </div>
           </div>
-          <button className="relative w-full flex items-center justify-center gap-1 text-xs font-semibold hover:opacity-80 transition-opacity"
-            style={{ color:'#818cf8' }}>
-            <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Partager mon QR Code
-          </button>
+          <div>
+            <p className="text-xs font-semibold leading-none mb-0.5" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>QR Connect</p>
+            <p className="text-xs" style={{ color: '#9a9a9a' }}>Partager</p>
+          </div>
         </div>
       </div>
 
       {/* Profile info */}
-      <div className="px-6 relative" style={{ backgroundColor: '#080c18' }}>
-        <div className="flex items-end gap-5 -mt-12 pb-5 flex-wrap">
-          {/* Avatar */}
+      <div className="px-6 relative" style={{ backgroundColor: '#0c0c0d' }}>
+        <div className="flex items-end gap-6 -mt-10 pb-5 flex-wrap">
+          {/* Avatar — solid ring, initials */}
           <div className="relative flex-shrink-0 z-10">
-            <div className="w-24 h-24 rounded-full overflow-hidden"
-              style={{ border: '3px solid #080c18', boxShadow: '0 0 0 2px rgba(99,102,241,0.4), 0 0 20px rgba(99,102,241,0.2)', background: 'linear-gradient(135deg, #1e3a8a, #4c1d95)' }}>
-              <div className="w-full h-full flex flex-col items-center justify-end pb-1 bg-gradient-to-b from-blue-800/80 to-indigo-900">
-                <div className="absolute top-4 w-9 h-9 rounded-full" style={{ backgroundColor: 'rgba(253,230,138,0.65)' }} />
-                <div className="relative w-14 h-7 rounded-t-full" style={{ backgroundColor: 'rgba(59,130,246,0.6)' }} />
-              </div>
+            <div className="w-20 h-20 rounded-full flex items-center justify-center"
+              style={{ border: '2px solid #0c0c0d', outline: '1.5px solid #c9a96e', background: '#1a1a1d' }}>
+              <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 22, fontWeight: 700, color: '#c9a96e', letterSpacing: '-0.02em' }}>HN</span>
             </div>
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-xs font-bold text-white whitespace-nowrap"
-              style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)', boxShadow: '0 2px 10px rgba(99,102,241,0.5)', border: '1px solid rgba(165,180,252,0.2)' }}>
-              ✦ Maker
+            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 px-2 py-px text-xs font-semibold whitespace-nowrap"
+              style={{ background: '#c9a96e', color: '#0c0c0d', fontSize: 10, letterSpacing: '0.04em', borderRadius: 3 }}>
+              Maker
             </div>
           </div>
+
           {/* Name + meta */}
-          <div className="flex-1 pt-14 min-w-0">
+          <div className="flex-1 pt-10 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-xl font-black truncate" style={{ color: '#f0f4ff', letterSpacing: '-0.01em' }}>Dr Hassan NAANANI</h2>
-              <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #2563eb, #3b82f6)' }}>
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
+              <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 700, color: '#f2ede4', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+                Dr Hassan Naanani
+              </h2>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                <circle cx="12" cy="12" r="10" fill="#c9a96e" fillOpacity="0.15" stroke="#c9a96e" strokeWidth="1.5"/>
+                <polyline points="8 12 11 15 16 9" stroke="#c9a96e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-            <div className="flex items-center gap-2 text-xs mb-2 flex-wrap" style={{ color: '#4b5673' }}>
-              <span className="font-semibold" style={{ color: '#818cf8' }}>Maker</span>
-              <span>•</span><span style={{ color: '#64748b' }}>Niveau 7</span>
-              <span>•</span><span>🇲🇦 Benguerir</span>
-            </div>
-            <p className="text-xs italic mb-2.5" style={{ color: '#475569' }}>&quot;L&apos;innovation durable au service de l&apos;Afrique.&quot;</p>
+            <p className="text-xs mb-2" style={{ color: '#9a9a9a', fontFamily: 'Inter, sans-serif' }}>
+              Scientist · LIMSET – UM6P &nbsp;·&nbsp; Benguerir, Maroc
+            </p>
+            <p className="text-xs italic mb-3" style={{ color: '#6a6a6a', fontFamily: 'Playfair Display, serif' }}>
+              &ldquo;L&rsquo;innovation durable au service de l&rsquo;Afrique.&rdquo;
+            </p>
             <div className="flex flex-wrap gap-1.5">
               {['Digital Twins','Hydrogène Vert','IA & ML','Entrepreneuriat'].map(tag => (
-                <span key={tag} className="px-2.5 py-0.5 rounded-full text-xs font-medium"
-                  style={{ backgroundColor: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8' }}>{tag}</span>
+                <span key={tag} className="px-2 py-0.5 text-xs"
+                  style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.2)', color: '#c9a96e', borderRadius: 3, fontFamily: 'Inter, sans-serif' }}>
+                  {tag}
+                </span>
               ))}
             </div>
           </div>
-          {/* Dream Genome */}
-          <div className="pt-14 flex items-center gap-3 flex-shrink-0">
-            <div className="relative w-16 h-16">
-              <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
-                <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="5"/>
-                <circle cx="32" cy="32" r="26" fill="none" strokeWidth="5" strokeLinecap="round"
-                  stroke="url(#dg4)" strokeDasharray={`${0.85*2*Math.PI*26} ${2*Math.PI*26}`}/>
-                <defs><linearGradient id="dg4" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#06b6d4"/><stop offset="100%" stopColor="#818cf8"/>
-                </linearGradient></defs>
+
+          {/* Dream Genome — compact ring, no glow */}
+          <div className="pt-10 flex items-center gap-3 flex-shrink-0">
+            <div className="relative w-14 h-14">
+              <svg viewBox="0 0 56 56" className="w-full h-full -rotate-90">
+                <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/>
+                <circle cx="28" cy="28" r="22" fill="none" strokeWidth="4" strokeLinecap="round"
+                  stroke="#c9a96e" strokeDasharray={`${0.85*2*Math.PI*22} ${2*Math.PI*22}`}/>
               </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-sm font-black leading-none" style={{ color: '#a5b4fc' }}>85%</span>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#c9a96e', fontFamily: 'Inter, sans-serif' }}>85%</span>
               </div>
-              <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.08), transparent 70%)' }} />
             </div>
             <div>
-              <p className="text-xs font-bold" style={{ color: '#c7d2fe' }}>Dream Genome™</p>
-              <p className="text-xs mt-0.5" style={{ color: '#4b5673' }}>3 Nations actives</p>
+              <p className="text-xs font-semibold" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Dream Genome</p>
+              <p className="text-xs mt-0.5" style={{ color: '#9a9a9a' }}>3 Nations actives</p>
             </div>
           </div>
-          {/* Nations */}
-          <div className="pt-14 flex-shrink-0">
-            <div className="flex items-center justify-between mb-2.5">
-              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#4b5673', fontSize: 10 }}>Mes Nations</span>
-              <Link href="/nations" className="text-xs font-semibold ml-4 hover:opacity-80 transition-opacity" style={{ color: '#6366f1' }}>Voir →</Link>
+
+          {/* Nations — text list, no glow circles */}
+          <div className="pt-10 flex-shrink-0">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs" style={{ color: '#9a9a9a', fontFamily: 'Inter, sans-serif', letterSpacing: '0.06em' }}>Nations</span>
+              <Link href="/nations" className="text-xs ml-4 hover:opacity-70 transition-opacity" style={{ color: '#c9a96e' }}>Voir</Link>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-1.5">
               {[
-                { icon:'🏗️', name:'Bâtisseurs', main:true, color:'#10b981', glow:'rgba(16,185,129,0.3)' },
-                { icon:'🔭', name:'Explorateurs', color:'#818cf8', glow:'rgba(129,140,248,0.2)' },
-                { icon:'⚡', name:'Innovateurs', color:'#60a5fa', glow:'rgba(96,165,250,0.2)' },
+                { name:'Bâtisseurs', main: true },
+                { name:'Explorateurs', main: false },
+                { name:'Innovateurs', main: false },
               ].map(n => (
-                <div key={n.name} className="flex flex-col items-center gap-1.5">
-                  <div className="w-11 h-11 rounded-full flex items-center justify-center text-xl transition-transform hover:scale-105"
-                    style={{ background:`radial-gradient(circle at 35% 35%, ${n.color}30, ${n.color}10)`, border:`1.5px solid ${n.main ? n.color : n.color+'50'}`, boxShadow:`0 0 ${n.main?'14px':'6px'} ${n.glow}` }}>
-                    {n.icon}
-                  </div>
-                  <span className="text-xs text-center" style={{ color: n.main ? n.color : '#475569' }}>{n.name}</span>
-                  {n.main && <span className="text-xs font-semibold" style={{ color: '#10b981', fontSize: 10 }}>principale</span>}
+                <div key={n.name} className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: n.main ? '#c9a96e' : '#3a3a3a' }} />
+                  <span className="text-xs" style={{ color: n.main ? '#f2ede4' : '#6a6a6a', fontFamily: 'Inter, sans-serif' }}>{n.name}</span>
+                  {n.main && <span className="text-xs" style={{ color: '#c9a96e', fontSize: 10 }}>principale</span>}
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex overflow-x-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', backgroundColor: '#080c18' }}>
+        {/* Tabs — gold underline on active, no gradient */}
+        <div className="flex overflow-x-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           {tabs.map(tab => (
             <button key={tab.key} onClick={() => setActiveTab(tab.key)}
-              className="px-4 py-3 text-xs font-semibold transition-all border-b-2 whitespace-nowrap relative"
+              className="px-4 py-3 text-xs font-medium transition-colors whitespace-nowrap border-b-2"
               style={activeTab === tab.key ? {
-                color: '#a5b4fc', borderColor: '#6366f1', backgroundColor: '#080c18',
-              } : { color: '#4b5673', borderColor: 'transparent', backgroundColor: '#080c18' }}>
-              {activeTab === tab.key && (
-                <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent)' }} />
-              )}
+                color: '#f2ede4',
+                borderColor: '#c9a96e',
+                fontFamily: 'Inter, sans-serif',
+              } : {
+                color: '#6a6a6a',
+                borderColor: 'transparent',
+                fontFamily: 'Inter, sans-serif',
+              }}>
               {tab.label}
-              {tab.count !== undefined && <span className="ml-1.5 text-xs" style={{ color: activeTab===tab.key ? '#6366f1' : '#2d3748' }}>({tab.count})</span>}
+              {tab.count !== undefined && (
+                <span className="ml-1.5" style={{ color: activeTab === tab.key ? '#c9a96e' : '#3a3a3a', fontSize: 10 }}>
+                  {tab.count}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -359,8 +346,8 @@ function ProfileHero({ activeTab, setActiveTab }: { activeTab: string; setActive
 
 function Card({ children, className = '', style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={`rounded-2xl ${className}`}
-      style={{ background: 'linear-gradient(145deg, #0e1628 0%, #0a111e 100%)', border: '1px solid rgba(255,255,255,0.06)', ...style }}>
+    <div className={`rounded-lg ${className}`}
+      style={{ background: '#141416', border: '1px solid rgba(255,255,255,0.07)', ...style }}>
       {children}
     </div>
   );
@@ -370,7 +357,7 @@ function AboutColumn() {
   return (
     <div className="space-y-4">
       <Card className="p-5">
-        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>À propos de moi</h3>
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>À propos de moi</h3>
         <p className="text-xs leading-relaxed mb-4" style={{ color: '#475569' }}>
           Scientist, AI &amp; Digital Twins au LIMSET – UM6P. CTO de DIGITHS. 20+ ans en systèmes, réseaux et cloud. Spécialiste PINNs, jumeaux numériques, hydrogène vert et électrochimie computationnelle.
         </p>
@@ -392,18 +379,18 @@ function AboutColumn() {
 
       {/* Stats scientifiques réelles */}
       <Card className="p-5">
-        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Production scientifique</h3>
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Production scientifique</h3>
         <div className="grid grid-cols-3 gap-3 mb-4">
           {[
-            { val: '459', label: 'Citations', sub: '381 depuis 2021', color: '#6366f1' },
-            { val: '7', label: 'h-index', sub: 'Google Scholar', color: '#10b981' },
-            { val: '5', label: 'i10-index', sub: 'Publications Q1', color: '#3b82f6' },
+            { val: '459', label: 'Citations', sub: '381 depuis 2021' },
+            { val: '7', label: 'h-index', sub: 'Google Scholar' },
+            { val: '5', label: 'i10-index', sub: 'Publications Q1' },
           ].map(s => (
-            <div key={s.label} className="text-center rounded-xl p-3"
-              style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${s.color}25` }}>
-              <div className="text-xl font-black mb-0.5" style={{ color: s.color }}>{s.val}</div>
-              <div className="text-xs font-semibold" style={{ color: '#94a3b8' }}>{s.label}</div>
-              <div className="text-xs mt-0.5" style={{ color: '#374151', fontSize: 10 }}>{s.sub}</div>
+            <div key={s.label} className="text-center rounded p-3"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(201,169,110,0.15)' }}>
+              <div className="text-xl font-bold mb-0.5" style={{ color: '#c9a96e', fontFamily: 'Playfair Display, serif' }}>{s.val}</div>
+              <div className="text-xs font-semibold" style={{ color: '#f2ede4' }}>{s.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: '#6a6a6a', fontSize: 10 }}>{s.sub}</div>
             </div>
           ))}
         </div>
@@ -426,7 +413,7 @@ function AboutColumn() {
 
       {/* Certifications réelles */}
       <Card className="p-5">
-        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Certifications</h3>
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Certifications</h3>
         <div className="space-y-2">
           {[
             { name: 'Azure Data Scientist Associate', org: 'Microsoft', color: '#0078d4', emoji: '🔷' },
@@ -448,7 +435,7 @@ function AboutColumn() {
       </Card>
 
       <Card className="p-5">
-        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Compétences clés</h3>
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Compétences clés</h3>
         <div className="flex flex-wrap gap-2">
           {['PINNs','Digital Twins','Deep Learning','Python','Azure ML','Unity 3D','Hydrogène Vert','PEM/AWE','Next.js','Formation'].map(s => (
             <span key={s} className="px-2.5 py-1 rounded-lg text-xs font-medium"
@@ -475,8 +462,8 @@ function MiddleColumn() {
     <div className="space-y-4">
       <Card>
         <div className="flex items-center justify-between px-5 pt-5 pb-4">
-          <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Mes projets</h3>
-          <Link href="/projects" className="text-xs font-semibold hover:opacity-80 transition-opacity" style={{ color: '#6366f1' }}>Voir tous →</Link>
+          <h3 className="font-bold text-sm" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Mes projets</h3>
+          <Link href="/projects" className="text-xs hover:opacity-70 transition-opacity" style={{ color: '#c9a96e' }}>Voir tous</Link>
         </div>
         {projects.map((p, idx) => (
           <div key={p.title} className={`px-5 pb-5 ${idx < projects.length-1 ? 'mb-1' : ''}`}>
@@ -515,8 +502,8 @@ function MiddleColumn() {
 
       <Card className="p-5">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Mon fil d&apos;activité</h3>
-          <button className="text-xs font-semibold hover:opacity-80 transition-opacity" style={{ color: '#6366f1' }}>Voir tout →</button>
+          <h3 className="font-bold text-sm" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Mon fil d&apos;activité</h3>
+          <button className="text-xs hover:opacity-70 transition-opacity" style={{ color: '#c9a96e' }}>Voir tout</button>
         </div>
         <div className="space-y-4">
           {activities.map((a, i) => (
@@ -534,14 +521,14 @@ function MiddleColumn() {
           ))}
         </div>
         <div className="mt-4 flex items-center gap-2 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-          <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-black text-white"
-            style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)' }}>HN</div>
+          <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold"
+            style={{ background: '#c9a96e', color: '#0c0c0d', fontFamily: 'Playfair Display, serif' }}>HN</div>
           <input placeholder="Écrire un message..."
-            className="flex-1 px-3.5 py-2 rounded-xl text-xs focus:outline-none transition-colors"
-            style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', color: '#64748b' }} />
-          <button className="w-8 h-8 rounded-xl flex items-center justify-center hover:opacity-80 transition-opacity flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 2px 10px rgba(99,102,241,0.3)' }}>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            className="flex-1 px-3.5 py-2 rounded text-xs focus:outline-none transition-colors"
+            style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#9a9a9a' }} />
+          <button className="w-8 h-8 rounded flex items-center justify-center hover:opacity-80 transition-opacity flex-shrink-0"
+            style={{ background: '#c9a96e' }}>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="#0c0c0d"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
       </Card>
@@ -565,8 +552,8 @@ function RightColumn() {
     <div className="space-y-4">
       <Card className="p-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Opportunités pour vous</h3>
-          <Link href="#" className="text-xs font-semibold hover:opacity-80 transition-opacity" style={{ color: '#6366f1' }}>Voir tout →</Link>
+          <h3 className="font-bold text-sm" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Opportunités pour vous</h3>
+          <Link href="#" className="text-xs hover:opacity-70 transition-opacity" style={{ color: '#c9a96e' }}>Voir tout</Link>
         </div>
         <div className="space-y-3.5">
           {opps.map((o, i) => (
@@ -598,34 +585,30 @@ function RightColumn() {
 
       <Card className="p-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Ma progression</h3>
-          <button className="text-xs font-semibold hover:opacity-80 transition-opacity" style={{ color: '#6366f1' }}>Détails →</button>
+          <h3 className="font-bold text-sm" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Ma progression</h3>
+          <button className="text-xs hover:opacity-70 transition-opacity" style={{ color: '#c9a96e' }}>Détails</button>
         </div>
         <div className="flex items-center gap-4 mb-5">
           <div className="relative w-20 h-20 flex-shrink-0">
             <svg viewBox="0 0 80 80" className="w-full h-full -rotate-90">
-              <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="6"/>
-              <circle cx="40" cy="40" r="30" fill="none" strokeWidth="6" strokeLinecap="round"
-                stroke="url(#xp4)" strokeDasharray={`${0.74*2*Math.PI*30} ${2*Math.PI*30}`}/>
-              <defs><linearGradient id="xp4" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#06b6d4"/><stop offset="100%" stopColor="#10b981"/>
-              </linearGradient></defs>
+              <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="5"/>
+              <circle cx="40" cy="40" r="30" fill="none" strokeWidth="5" strokeLinecap="round"
+                stroke="#c9a96e" strokeDasharray={`${0.74*2*Math.PI*30} ${2*Math.PI*30}`}/>
             </svg>
-            <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.06), transparent 70%)' }} />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-lg font-black leading-none" style={{ color: '#34d399' }}>7</span>
-              <span className="text-xs" style={{ color: '#374151' }}>Maker</span>
+              <span className="text-lg font-bold leading-none" style={{ color: '#c9a96e', fontFamily: 'Playfair Display, serif' }}>7</span>
+              <span className="text-xs" style={{ color: '#9a9a9a' }}>Maker</span>
             </div>
           </div>
           <div className="flex-1">
-            <p className="text-sm font-bold mb-1" style={{ color: '#e2e8f0' }}>1 850 / 2 500 XP</p>
-            <div className="rounded-full h-2 mb-1.5" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
-              <div className="h-2 rounded-full" style={{ width:'74%', background:'linear-gradient(90deg, #06b6d4, #10b981)', boxShadow:'0 0 8px rgba(16,185,129,0.4)' }} />
+            <p className="text-sm font-semibold mb-1" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>1 850 / 2 500 XP</p>
+            <div className="rounded-full h-1.5 mb-1.5" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
+              <div className="h-1.5 rounded-full" style={{ width:'74%', backgroundColor: '#c9a96e' }} />
             </div>
-            <p className="text-xs" style={{ color: '#374151' }}>650 XP avant Niveau 8</p>
+            <p className="text-xs" style={{ color: '#9a9a9a' }}>650 XP avant Niveau 8</p>
           </div>
         </div>
-        <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#2d3748', fontSize: 10 }}>Prochains badges</p>
+        <p className="text-xs mb-3" style={{ color: '#6a6a6a', fontFamily: 'Inter, sans-serif', letterSpacing: '0.06em' }}>Prochains badges</p>
         <div className="flex gap-3 justify-around">
           {badges.map(b => (
             <div key={b.label} className="flex flex-col items-center gap-1.5 group">
@@ -639,37 +622,25 @@ function RightColumn() {
         </div>
       </Card>
 
-      {/* Upgrade card */}
-      <div className="relative rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(99,102,241,0.2)' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #060a20 0%, #0a1a0a 45%, #060c1e 100%)' }} />
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 80% 10%, rgba(99,102,241,0.2) 0%, transparent 55%)' }} />
-        <svg className="absolute bottom-0 w-full" viewBox="0 0 400 50" preserveAspectRatio="none" style={{ height: 42 }}>
-          <path d="M0,50 L0,30 L60,12 L120,28 L180,6 L240,24 L300,10 L360,26 L400,16 L400,50 Z" fill="rgba(0,0,0,0.5)"/>
-          <path d="M0,50 L0,38 L80,26 L200,36 L320,24 L400,32 L400,50 Z" fill="rgba(4,6,15,0.7)"/>
-        </svg>
-        <div className="absolute bottom-10 right-6 opacity-15">
-          <svg width="18" height="30" viewBox="0 0 18 30" fill="white">
-            <circle cx="9" cy="4" r="3.5"/><path d="M3 12 Q9 8 15 12 L16 24 L12.5 24 L11.5 18 L6.5 18 L5.5 24 L2 24 Z"/>
-          </svg>
-        </div>
-        {/* Stars */}
-        {[...Array(12)].map((_,i) => (
-          <div key={i} className="absolute rounded-full bg-white"
-            style={{ width:1, height:1, top:`${(i*31+5)%80}%`, left:`${(i*47+9)%90}%`, opacity:0.08+(i%5)*0.06 }} />
-        ))}
-        <div className="relative p-5">
-          <div className="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-full text-xs font-bold"
-            style={{ background:'rgba(251,191,36,0.1)', color:'#fbbf24', border:'1px solid rgba(251,191,36,0.25)' }}>
-            👑 Premium
+      {/* Upgrade card — editorial, no decorative elements */}
+      <div className="p-5 rounded-lg" style={{ background: '#141416', border: '1px solid rgba(201,169,110,0.2)' }}>
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <span className="text-xs px-2 py-0.5 rounded mb-2 inline-block"
+              style={{ background: 'rgba(201,169,110,0.12)', color: '#c9a96e', border: '1px solid rgba(201,169,110,0.2)', fontSize: 10, letterSpacing: '0.05em' }}>
+              Premium
+            </span>
+            <p className="font-semibold text-sm mt-2" style={{ color: '#f2ede4', fontFamily: 'Playfair Display, serif' }}>Passez au niveau supérieur</p>
           </div>
-          <p className="font-bold text-sm mb-1.5" style={{ color: '#f0f4ff' }}>Passez au niveau supérieur</p>
-          <p className="text-xs leading-relaxed mb-4" style={{ color: '#374151' }}>Accédez à des outils exclusifs et des opportunités de développement avancées.</p>
-          <button className="w-full py-2.5 rounded-xl text-xs font-bold text-white hover:opacity-90 transition-all hover:scale-[1.02]"
-            style={{ background: 'linear-gradient(135deg, #065f46, #059669)', boxShadow: '0 3px 14px rgba(16,185,129,0.3)' }}>
-            Découvrir les abonnements →
-          </button>
-          <p className="text-center text-xs mt-2.5 italic" style={{ color: '#1f2937' }}>Dream • Create • Impact</p>
         </div>
+        <p className="text-xs leading-relaxed mb-4" style={{ color: '#9a9a9a', fontFamily: 'Inter, sans-serif' }}>
+          Outils exclusifs et opportunités de développement avancées.
+        </p>
+        <button className="w-full py-2.5 rounded text-xs font-semibold hover:opacity-90 transition-opacity"
+          style={{ background: '#c9a96e', color: '#0c0c0d', fontFamily: 'Inter, sans-serif', letterSpacing: '0.03em' }}>
+          Découvrir les abonnements
+        </button>
+        <p className="text-center text-xs mt-3" style={{ color: '#3a3a3a', fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>Dream · Create · Impact</p>
       </div>
     </div>
   );
@@ -678,38 +649,42 @@ function RightColumn() {
 function TabContent({ activeTab }: { activeTab: string }) {
   if (activeTab === 'projets') {
     return (
-      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+      <div className="p-4" style={{ backgroundColor: '#0c0c0d' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+          <div className="rounded-lg p-6" style={{ background: '#141416', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex items-center justify-between mb-5">
-              <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Mes projets (2)</h3>
-              <Link href="/projects" className="text-xs font-semibold hover:opacity-80" style={{ color: '#6366f1' }}>Voir tous les projets →</Link>
+              <h3 className="font-bold text-sm" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Mes projets (2)</h3>
+              <Link href="/projects" className="text-xs hover:opacity-70" style={{ color: '#c9a96e' }}>Voir tous les projets</Link>
             </div>
             {[
-              { title:'OLOD Platform', status:'En cours', sc:'#6366f1', sg:'rgba(99,102,241,0.15)', category:'Tech & Innovation', progress:72, emoji:'🌐' },
-              { title:'Digital Twin H₂ Storage', status:'En cours', sc:'#3b82f6', sg:'rgba(59,130,246,0.15)', category:'Science • Énergie', progress:55, emoji:'⚗️' },
+              { title:'OLOD Platform', status:'En cours', category:'Tech & Innovation', progress:72, emoji:'🌐' },
+              { title:'Digital Twin H₂ Storage', status:'En cours', category:'Science · Énergie', progress:55, emoji:'⚗️' },
             ].map(p => (
-              <div key={p.title} className="flex items-center gap-4 mb-4 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-                  style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)' }}>{p.emoji}</div>
+              <div key={p.title} className="flex items-center gap-4 mb-4 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="w-14 h-14 rounded flex items-center justify-center text-2xl flex-shrink-0"
+                  style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.15)' }}>{p.emoji}</div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-sm" style={{ color: '#e2e8f0' }}>{p.title}</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: p.sg, color: p.sc, border: `1px solid ${p.sc}30` }}>{p.status}</span>
+                    <span className="font-semibold text-sm" style={{ color: '#f2ede4' }}>{p.title}</span>
+                    <span className="text-xs px-2 py-0.5 rounded"
+                      style={{ background: 'rgba(201,169,110,0.1)', color: '#c9a96e', border: '1px solid rgba(201,169,110,0.2)', fontSize: 10 }}>
+                      {p.status}
+                    </span>
                   </div>
-                  <p className="text-xs mb-2" style={{ color: '#374151' }}>{p.category}</p>
+                  <p className="text-xs mb-2" style={{ color: '#9a9a9a' }}>{p.category}</p>
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 rounded-full h-1.5" style={{ background: 'rgba(255,255,255,0.08)' }}>
-                      <div className="h-1.5 rounded-full" style={{ width: `${p.progress}%`, backgroundColor: p.sc }} />
+                    <div className="flex-1 rounded-full h-1" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                      <div className="h-1 rounded-full" style={{ width: `${p.progress}%`, backgroundColor: '#c9a96e' }} />
                     </div>
-                    <span className="text-xs font-medium" style={{ color: p.sc }}>{p.progress}%</span>
+                    <span className="text-xs font-medium" style={{ color: '#c9a96e' }}>{p.progress}%</span>
                   </div>
                 </div>
-                <Link href="/projects" className="text-xs px-3 py-1.5 rounded-lg font-semibold" style={{ color: p.sc, backgroundColor: p.sg }}>Voir →</Link>
+                <Link href="/projects" className="text-xs px-3 py-1.5 rounded font-medium hover:opacity-80 transition-opacity"
+                  style={{ color: '#c9a96e', background: 'rgba(201,169,110,0.1)', border: '1px solid rgba(201,169,110,0.2)' }}>Voir</Link>
               </div>
             ))}
-            <Link href="/projects" className="block w-full text-center py-2.5 rounded-xl text-xs font-semibold text-white mt-2"
-              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>+ Créer un nouveau projet</Link>
+            <Link href="/projects" className="block w-full text-center py-2.5 rounded text-xs font-semibold mt-2 hover:opacity-90 transition-opacity"
+              style={{ background: '#c9a96e', color: '#0c0c0d' }}>+ Créer un nouveau projet</Link>
           </div>
         </div>
       </div>
@@ -718,33 +693,33 @@ function TabContent({ activeTab }: { activeTab: string }) {
 
   if (activeTab === 'connexions') {
     return (
-      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+      <div className="p-4" style={{ backgroundColor: '#0c0c0d' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
+          <div className="rounded-lg p-6" style={{ background: '#141416', border: '1px solid rgba(255,255,255,0.07)' }}>
             <div className="flex items-center justify-between mb-5">
-              <h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Mes connexions (124)</h3>
+              <h3 className="font-bold text-sm" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Mes connexions (124)</h3>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { name: 'Sarah K.', role: 'CTO GreenEnergy', nation: 'Innovateurs', avatar: 'SK', color: '#10b981' },
-                { name: 'Ali B.', role: 'IoT Engineer', nation: 'Bâtisseurs', avatar: 'AB', color: '#6366f1' },
-                { name: 'Sofia M.', role: 'Product Manager', nation: 'Bâtisseurs', avatar: 'SM', color: '#f59e0b' },
-                { name: 'Youssef R.', role: 'Data Scientist', nation: 'Innovateurs', avatar: 'YR', color: '#3b82f6' },
-                { name: 'Nadia H.', role: 'UX Designer', nation: 'Artisans', avatar: 'NH', color: '#ec4899' },
-                { name: 'Omar Z.', role: 'Blockchain Dev', nation: 'Pionniers', avatar: 'OZ', color: '#8b5cf6' },
+                { name: 'Sarah K.', role: 'CTO GreenEnergy', nation: 'Innovateurs', avatar: 'SK' },
+                { name: 'Ali B.', role: 'IoT Engineer', nation: 'Bâtisseurs', avatar: 'AB' },
+                { name: 'Sofia M.', role: 'Product Manager', nation: 'Bâtisseurs', avatar: 'SM' },
+                { name: 'Youssef R.', role: 'Data Scientist', nation: 'Innovateurs', avatar: 'YR' },
+                { name: 'Nadia H.', role: 'UX Designer', nation: 'Artisans', avatar: 'NH' },
+                { name: 'Omar Z.', role: 'Blockchain Dev', nation: 'Pionniers', avatar: 'OZ' },
               ].map(c => (
-                <div key={c.name} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0"
-                    style={{ background: `linear-gradient(135deg, ${c.color}80, ${c.color})` }}>{c.avatar}</div>
+                <div key={c.name} className="flex items-center gap-3 p-3 rounded" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                    style={{ background: '#1a1a1d', border: '1px solid rgba(201,169,110,0.3)', color: '#c9a96e', fontFamily: 'Inter, sans-serif' }}>{c.avatar}</div>
                   <div>
-                    <p className="font-semibold text-xs" style={{ color: '#e2e8f0' }}>{c.name}</p>
-                    <p className="text-xs" style={{ color: '#4b5673' }}>{c.role}</p>
-                    <p className="text-xs" style={{ color: c.color }}>🏳️ {c.nation}</p>
+                    <p className="font-semibold text-xs" style={{ color: '#f2ede4' }}>{c.name}</p>
+                    <p className="text-xs" style={{ color: '#9a9a9a' }}>{c.role}</p>
+                    <p className="text-xs" style={{ color: '#6a6a6a' }}>{c.nation}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-center text-xs mt-4" style={{ color: '#4b5673' }}>et 118 autres connexions…</p>
+            <p className="text-center text-xs mt-4" style={{ color: '#6a6a6a' }}>et 118 autres connexions…</p>
           </div>
         </div>
       </div>
@@ -753,25 +728,25 @@ function TabContent({ activeTab }: { activeTab: string }) {
 
   if (activeTab === 'badges') {
     return (
-      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+      <div className="p-4" style={{ backgroundColor: '#0c0c0d' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
-            <h3 className="font-bold text-sm mb-5" style={{ color: '#c7d2fe' }}>Mes badges (8)</h3>
-            <div className="grid grid-cols-4 gap-4">
+          <div className="rounded-lg p-6" style={{ background: '#141416', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <h3 className="font-bold text-sm mb-5" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Mes badges (8)</h3>
+            <div className="grid grid-cols-4 gap-3">
               {[
-                { icon: '🏅', label: 'Expert Digital Twins', color: '#f59e0b' },
-                { icon: '🌱', label: 'Green Innovator', color: '#10b981' },
-                { icon: '🤝', label: 'Super Connecteur', color: '#6366f1' },
-                { icon: '🚀', label: 'Early Adopter', color: '#8b5cf6' },
-                { icon: '💡', label: 'Mentor', color: '#3b82f6' },
-                { icon: '🌍', label: 'Nation Builder', color: '#d97706' },
-                { icon: '⚗️', label: 'Chercheur', color: '#06b6d4' },
-                { icon: '🎓', label: 'Formateur', color: '#ec4899' },
+                { icon: '🏅', label: 'Expert Digital Twins' },
+                { icon: '🌱', label: 'Green Innovator' },
+                { icon: '🤝', label: 'Super Connecteur' },
+                { icon: '🚀', label: 'Early Adopter' },
+                { icon: '💡', label: 'Mentor' },
+                { icon: '🌍', label: 'Nation Builder' },
+                { icon: '⚗️', label: 'Chercheur' },
+                { icon: '🎓', label: 'Formateur' },
               ].map(b => (
-                <div key={b.label} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${b.color}30` }}>
-                  <div className="text-3xl">{b.icon}</div>
-                  <p className="text-xs font-semibold" style={{ color: b.color }}>{b.label}</p>
+                <div key={b.label} className="flex flex-col items-center gap-2 p-4 rounded text-center"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(201,169,110,0.15)' }}>
+                  <div className="text-2xl">{b.icon}</div>
+                  <p className="text-xs" style={{ color: '#9a9a9a', fontFamily: 'Inter, sans-serif' }}>{b.label}</p>
                 </div>
               ))}
             </div>
@@ -783,28 +758,27 @@ function TabContent({ activeTab }: { activeTab: string }) {
 
   if (activeTab === 'journal') {
     return (
-      <div className="p-4" style={{ backgroundColor: '#080c18' }}>
+      <div className="p-4" style={{ backgroundColor: '#0c0c0d' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(145deg, #0e1628, #0a111e)', border: '1px solid rgba(255,255,255,0.07)' }}>
-            <h3 className="font-bold text-sm mb-5" style={{ color: '#c7d2fe' }}>Mon journal de rêves</h3>
-            <div className="space-y-4">
+          <div className="rounded-lg p-6" style={{ background: '#141416', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <h3 className="font-bold text-sm mb-5" style={{ color: '#f2ede4', fontFamily: 'Inter, sans-serif' }}>Mon journal de rêves</h3>
+            <div className="space-y-3">
               {[
-                { date: 'Aujourd\'hui', title: 'Vision OLOD 2026', text: 'Atteindre 10 000 membres actifs et 500 projets collaboratifs...', emoji: '✨' },
-                { date: 'Il y a 3 jours', title: 'Avancée H₂ Storage', text: 'Le modèle thermochimique atteint 94% de précision sur les données LIMSET...', emoji: '⚗️' },
-                { date: 'Il y a 1 semaine', title: 'Impact formation UM6P', text: 'Session Python ML terminée avec 95% de satisfaction. Prochaine étape: Deep Learning...', emoji: '🎓' },
+                { date: "Aujourd'hui", title: 'Vision OLOD 2026', text: 'Atteindre 10 000 membres actifs et 500 projets collaboratifs...' },
+                { date: 'Il y a 3 jours', title: 'Avancée H₂ Storage', text: 'Le modèle thermochimique atteint 94% de précision sur les données LIMSET...' },
+                { date: 'Il y a 1 semaine', title: 'Impact formation UM6P', text: 'Session Python ML terminée avec 95% de satisfaction. Prochaine étape: Deep Learning...' },
               ].map(j => (
-                <div key={j.title} className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-lg">{j.emoji}</span>
-                    <span className="font-semibold text-sm" style={{ color: '#e2e8f0' }}>{j.title}</span>
-                    <span className="text-xs ml-auto" style={{ color: '#4b5673' }}>{j.date}</span>
+                <div key={j.title} className="p-4 rounded" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                  <div className="flex items-start justify-between gap-2 mb-1.5">
+                    <span className="font-semibold text-sm" style={{ color: '#f2ede4', fontFamily: 'Playfair Display, serif' }}>{j.title}</span>
+                    <span className="text-xs flex-shrink-0" style={{ color: '#6a6a6a' }}>{j.date}</span>
                   </div>
-                  <p className="text-xs" style={{ color: '#64748b' }}>{j.text}</p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#9a9a9a' }}>{j.text}</p>
                 </div>
               ))}
             </div>
-            <button className="w-full mt-4 py-2.5 rounded-xl text-xs font-semibold text-white"
-              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>+ Nouvelle entrée</button>
+            <button className="w-full mt-4 py-2.5 rounded text-xs font-semibold hover:opacity-90 transition-opacity"
+              style={{ background: '#c9a96e', color: '#0c0c0d' }}>+ Nouvelle entrée</button>
           </div>
         </div>
       </div>
