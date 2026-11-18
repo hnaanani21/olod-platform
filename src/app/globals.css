@@ -4,25 +4,39 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --dream-primary: #6366f1;
-  --dream-secondary: #8b5cf6;
-  --dream-gold: #f59e0b;
-  --cosmic-dark: #0f0a1e;
-  --cosmic-mid: #1a1035;
+@layer base {
+  :root {
+    color-scheme: dark;
+    --dream-primary: #6366f1;
+    --dream-secondary: #8b5cf6;
+    --dream-gold: #f59e0b;
+    --cosmic-dark: #04060f;
+    --cosmic-mid: #080c18;
+    background-color: #04060f;
+  }
+
+  html {
+    background-color: #04060f;
+  }
+
+  body {
+    background-color: #04060f;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: transparent;
+  }
 }
 
-* {
-  box-sizing: border-box;
-}
-
-/* Force dark background on all elements — prevents white bleed */
-html, body, #__next, [data-nextjs-scroll-focus-boundary] {
+html, body {
   background-color: #04060f !important;
-}
-
-button {
-  background-color: transparent;
 }
 
 body {
