@@ -191,7 +191,7 @@ function ProfileHero({ activeTab, setActiveTab }: { activeTab: string; setActive
     { label: 'Paramètres', key: 'parametres' },
   ];
   return (
-    <div>
+    <div style={{ backgroundColor: '#080c18' }}>
       {/* Banner */}
       <div className="relative h-44 overflow-hidden">
         {/* Sky */}
@@ -337,13 +337,13 @@ function ProfileHero({ activeTab, setActiveTab }: { activeTab: string; setActive
         </div>
 
         {/* Tabs */}
-        <div className="flex overflow-x-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="flex overflow-x-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', backgroundColor: '#080c18' }}>
           {tabs.map(tab => (
             <button key={tab.key} onClick={() => setActiveTab(tab.key)}
               className="px-4 py-3 text-xs font-semibold transition-all border-b-2 whitespace-nowrap relative"
               style={activeTab === tab.key ? {
-                color: '#a5b4fc', borderColor: '#6366f1',
-              } : { color: '#4b5673', borderColor: 'transparent' }}>
+                color: '#a5b4fc', borderColor: '#6366f1', backgroundColor: '#080c18',
+              } : { color: '#4b5673', borderColor: 'transparent', backgroundColor: '#080c18' }}>
               {activeTab === tab.key && (
                 <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent)' }} />
               )}

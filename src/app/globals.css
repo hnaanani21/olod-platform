@@ -16,6 +16,15 @@
   box-sizing: border-box;
 }
 
+/* Force dark background on all elements — prevents white bleed */
+html, body, #__next, [data-nextjs-scroll-focus-boundary] {
+  background-color: #04060f !important;
+}
+
+button {
+  background-color: transparent;
+}
+
 body {
   background-color: #04060f;
   color: #e2e8f0;
