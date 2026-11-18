@@ -640,7 +640,7 @@ export default function DashboardPage() {
         <TopBar />
         <div className="flex-1 overflow-y-auto" style={{ backgroundColor: '#080c18' }}>
           <ProfileHero activeTab={activeTab} setActiveTab={setActiveTab} />
-          <div className="grid gap-4 p-4" style={{ gridTemplateColumns: '300px 1fr 280px' }}>
+          <div className="grid gap-4 p-4" style={{ gridTemplateColumns: '300px 1fr 280px', backgroundColor: '#080c18' }}>
             <AboutColumn />
             <MiddleColumn />
             <RightColumn />

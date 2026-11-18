@@ -24,8 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="scroll-smooth">
-      <body className="antialiased min-h-screen">
-        <div className="stars-bg" aria-hidden="true" />
+      <body className="antialiased min-h-screen" style={{ backgroundColor: '#04060f' }}>
         <div className="relative z-10">
           {children}
         </div>
