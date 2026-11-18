@@ -372,44 +372,88 @@ function AboutColumn() {
       <Card className="p-5">
         <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>À propos de moi</h3>
         <p className="text-xs leading-relaxed mb-4" style={{ color: '#475569' }}>
-          CTO de DIGITHS, chercheur au LIMSET UM6P en Digital Twins, IA et Hydrogène Vert. Passionné par l&apos;innovation durable et les collaborations impactantes.
+          Scientist, AI &amp; Digital Twins au LIMSET – UM6P. CTO de DIGITHS. 20+ ans en systèmes, réseaux et cloud. Spécialiste PINNs, jumeaux numériques, hydrogène vert et électrochimie computationnelle.
         </p>
         <div className="space-y-2.5">
           {[
-            { d:'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z', t:'CTO DIGITHS & Chercheur LIMSET' },
-            { d:'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z', t:'Benguerir, Maroc 🇲🇦' },
-            { d:'M3 5h2V3c-1.1 0-2 .9-2 2zm0 8h2v-2H3v2zm10-6h-2v2h2V3zm6 0v2h2c0-1.1-.9-2-2-2zM5 21v-2H3c0 1.1.9 2 2 2zm-2-4h2v-2H3v2zM9 3H7v2h2V3zm10 14h2v-2h-2v2zm0-8h2V7h-2v2z', t:'Français / عربي / English' },
-            { d:'M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z', t:'Disponible pour collaborations' },
+            { emoji:'🏛️', t:'LIMSET – UM6P, Benguerir' },
+            { emoji:'🏢', t:'CTO DIGITHS' },
+            { emoji:'📍', t:'Benguerir, Maroc 🇲🇦' },
+            { emoji:'🌐', t:'Français / عربي / English' },
+            { emoji:'✉️', t:'Disponible pour collaborations' },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2.5 text-xs" style={{ color: '#475569' }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#374151', flexShrink: 0 }}><path d={item.d}/></svg>
+              <span style={{ flexShrink: 0 }}>{item.emoji}</span>
               <span>{item.t}</span>
             </div>
           ))}
         </div>
       </Card>
 
+      {/* Stats scientifiques réelles */}
       <Card className="p-5">
-        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Mes compétences</h3>
-        <div className="flex flex-wrap gap-2">
-          {['Digital Twins','IA & ML','Python','Next.js','Hydrogène Vert','Azure','Unity 3D','Formation','+4'].map(s => (
-            <span key={s} className="px-2.5 py-1 rounded-lg text-xs font-medium transition-colors hover:border-indigo-500/40"
-              style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#64748b' }}>{s}</span>
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Production scientifique</h3>
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          {[
+            { val: '459', label: 'Citations', sub: '381 depuis 2021', color: '#6366f1' },
+            { val: '7', label: 'h-index', sub: 'Google Scholar', color: '#10b981' },
+            { val: '5', label: 'i10-index', sub: 'Publications Q1', color: '#3b82f6' },
+          ].map(s => (
+            <div key={s.label} className="text-center rounded-xl p-3"
+              style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${s.color}25` }}>
+              <div className="text-xl font-black mb-0.5" style={{ color: s.color }}>{s.val}</div>
+              <div className="text-xs font-semibold" style={{ color: '#94a3b8' }}>{s.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: '#374151', fontSize: 10 }}>{s.sub}</div>
+            </div>
+          ))}
+        </div>
+        <div className="space-y-1.5">
+          {[
+            { j: 'Computers & Chemical Engineering', q: 'Q1', y: '2026' },
+            { j: 'Int. J. of Hydrogen Energy', q: 'Q1', y: '2026' },
+            { j: 'Renewable Energy Focus', q: 'Q1', y: '2025' },
+            { j: 'Int. J. of Hydrogen Energy', q: 'Q2', y: '2024' },
+          ].map((p, i) => (
+            <div key={i} className="flex items-center gap-2 text-xs">
+              <span className="px-1.5 py-0.5 rounded font-bold text-xs flex-shrink-0"
+                style={{ background: p.q === 'Q1' ? 'rgba(16,185,129,0.15)' : 'rgba(234,179,8,0.15)', color: p.q === 'Q1' ? '#10b981' : '#eab308', fontSize: 10 }}>{p.q}</span>
+              <span className="truncate" style={{ color: '#475569' }}>{p.j}</span>
+              <span className="flex-shrink-0" style={{ color: '#2d3748' }}>{p.y}</span>
+            </div>
           ))}
         </div>
       </Card>
 
-      <Card>
-        <div className="p-4 pb-2"><h3 className="font-bold text-sm" style={{ color: '#c7d2fe' }}>Ma vidéo de présentation</h3></div>
-        <div className="relative mx-4 mb-4 rounded-xl overflow-hidden aspect-video flex items-center justify-center cursor-pointer group"
-          style={{ background: 'linear-gradient(135deg, #060f1e 0%, #0a2010 50%, #060f1e 100%)' }}>
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-            style={{ background: 'rgba(99,102,241,0.08)' }} />
-          <div className="w-11 h-11 rounded-full flex items-center justify-center transition-all group-hover:scale-110"
-            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="ml-0.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <span className="absolute bottom-2 right-2 text-xs bg-black/60 px-1.5 py-0.5 rounded font-mono" style={{ color: '#64748b' }}>0:28</span>
+      {/* Certifications réelles */}
+      <Card className="p-5">
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Certifications</h3>
+        <div className="space-y-2">
+          {[
+            { name: 'Azure Data Scientist Associate', org: 'Microsoft', color: '#0078d4', emoji: '🔷' },
+            { name: 'Azure Administrator Associate', org: 'Microsoft', color: '#0078d4', emoji: '☁️' },
+            { name: 'VMware Professional VCP', org: 'VMware', color: '#607078', emoji: '⚙️' },
+            { name: 'VMware vSphere 6.7', org: 'VMware', color: '#607078', emoji: '🖥️' },
+            { name: 'Dell Implementation Engineer', org: 'Dell (×2)', color: '#007db8', emoji: '🔧' },
+          ].map(c => (
+            <div key={c.name} className="flex items-center gap-2.5 text-xs rounded-lg px-3 py-2"
+              style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${c.color}20` }}>
+              <span>{c.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <div className="font-semibold truncate" style={{ color: '#94a3b8' }}>{c.name}</div>
+                <div style={{ color: '#374151', fontSize: 10 }}>{c.org}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card className="p-5">
+        <h3 className="font-bold text-sm mb-3" style={{ color: '#c7d2fe' }}>Compétences clés</h3>
+        <div className="flex flex-wrap gap-2">
+          {['PINNs','Digital Twins','Deep Learning','Python','Azure ML','Unity 3D','Hydrogène Vert','PEM/AWE','Next.js','Formation'].map(s => (
+            <span key={s} className="px-2.5 py-1 rounded-lg text-xs font-medium"
+              style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#64748b' }}>{s}</span>
+          ))}
         </div>
       </Card>
     </div>
